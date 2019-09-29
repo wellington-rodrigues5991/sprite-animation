@@ -16,7 +16,6 @@
 import React, { lazy, Suspense } from 'react';
 import { createBrowserHistory } from 'history';
 import { Router as BaseRouter, Switch, Route } from 'react-router-dom';
-import Koji from 'koji-tools';
 
 // Router
 const history = createBrowserHistory();
@@ -29,37 +28,14 @@ class BrowserRouter extends React.Component {
 // Main router
 export default class Router extends React.Component {
     render() {
-        const routes = Koji.config.pages
-            .map(page => {
-                const path = page.path.replace('frontend/', '');
-                return {
-                    ...page,
-                    Component: (props) => {
-                        const InternalComponent = lazy(() => import(`../${path}`));
-                        return (
-                            <Suspense fallback={<div />}>
-                                <InternalComponent />
-                            </Suspense>
-                        );
-                    },
-                    path: page.path,
-                };
-            });
-
         return (
-            <BrowserRouter>
-                <Switch>
-                    {routes.map(({ Component, route, path }, i) => (
-                        <Route
-                            key={i}
-                            exact={!route.includes(':')}
-                            path={route}
-                        >
-                            <Component />
-                        </Route>
-                    ))}
-                </Switch>
-            </BrowserRouter>
+            <Suspense fallback={<div />}>
+                <BrowserRouter>
+                    <Switch>
+                        <Route exact path="/" component={lazy(() => import('../pages/HomePage'))} />
+                    </Switch>
+                </BrowserRouter>
+            </Suspense>
         );
     }
 }
