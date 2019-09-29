@@ -52,8 +52,9 @@ const Message = styled.div`
 `;
 
 const InputRow = styled.div`
-    width: 100%;
+    width: calc(100% - 24px);
     display: flex;
+    padding: 12px;
 `;
 
 const Input = styled.input`
