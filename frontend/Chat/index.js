@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Koji from '@withkoji/vcc';
-import Dispatch, { DISPATCH_EVENT } from '@withkoji/dispatch';
+import Dispatch, { DISPATCH_EVENT, Utils } from '@withkoji/dispatch';
 
 const Container = styled.div`
     background-color: ${() => Koji.config.colors.backgroundColor};
@@ -75,6 +75,7 @@ class HomePage extends React.Component {
         super(props);
         this.state = {
             connectedClients: {},
+            latency: null,
             clientId: null,
             shardName: null,
             messages: [],
@@ -88,13 +89,17 @@ class HomePage extends React.Component {
         });
 
         this.dispatch.on(DISPATCH_EVENT.CONNECTED_CLIENTS_CHANGED, (payload) => {
-            this.setState({ connectedClients: payload.connectedClients });
+            this.setState({
+                connectedClients: payload.connectedClients, 
+                latency: this.dispatch.latency,
+            });
         });
 
         this.dispatch.on(DISPATCH_EVENT.CONNECTED, (payload) => {
             this.setState({
                 clientId: payload.clientId,
                 shardName: payload.shardName,
+                latency: this.dispatch.latency,
             });
         });
 
@@ -104,6 +109,7 @@ class HomePage extends React.Component {
                     ...this.state.messages,
                     payload,
                 ],
+                latency: this.dispatch.latency,
             })
         });
     }
@@ -123,7 +129,7 @@ class HomePage extends React.Component {
 
         this.dispatch.emitEvent('message_sent', {
             author: this.state.username,
-            body: this.state.messageBody,
+            body: Utils.filterProfanity(this.state.messageBody),
         });
 
         this.setState({ 
@@ -138,7 +144,7 @@ class HomePage extends React.Component {
             <Container>
                 <Header>
                     {Koji.config.strings.title}
-                    <SubHeader>{numOnlineUsers} user{numOnlineUsers !== 1 && 's'} online</SubHeader>
+                    <SubHeader>{numOnlineUsers} user{numOnlineUsers !== 1 && 's'} online &bull; {this.state.latency}ms latency</SubHeader>
                 </Header>
                 <MessageList>
                     {this.state.messages.map((message, i) => (
