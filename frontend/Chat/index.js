@@ -144,7 +144,7 @@ class HomePage extends React.Component {
             <Container>
                 <Header>
                     {Koji.config.strings.title}
-                    <SubHeader>{numOnlineUsers} user{numOnlineUsers !== 1 && 's'} online &bull; {this.state.latency}ms latency</SubHeader>
+                    <SubHeader>{numOnlineUsers} user{numOnlineUsers !== 1 && 's'} online &bull; {this.state.latency}ms replication latency</SubHeader>
                 </Header>
                 <MessageList>
                     {this.state.messages.map((message, i) => (
