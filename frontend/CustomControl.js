@@ -5,68 +5,45 @@ import CustomVcc from '@withkoji/custom-vcc-sdk';
 const Wrapper = styled.div`
     padding: 0;
     margin: 0;
-    background-color: ${({ backgroundColor }) => backgroundColor || '#fafafa'};
-    border: 1px solid #eee;
-    width: calc(100vw - 2px);
-    height: calc(100vh - 2px);
+    width: 100vw;
     display: flex;
+    flex-direction: column;
 `;
 
 const Title = styled.div`
     width: 100%;
-    margin-bottom: 12px;
-    font-weight: bold;
-`
-
-const Card = styled.div`
-    width: 100%;
+    height: 32px;
     display: flex;
-    padding: 12px;
+    align-items: center;
+    font-weight: bold;
+`;
+
+const Grid = styled.div`
+    border: 1px solid ${({ theme }) => theme.colors['border.default'] || 'black'};
+    width: 100vw;
+    display: flex;
     flex-direction: column;
 `;
 
-const Name = styled.input`
-    outline: none;
-    border: none;
-    padding: 8px;
-    font-size: 14px;
-    width: calc(100% - 16px);
-    border: 1px solid rgba(0,0,0,0.1);
-`;
-
-const Image = styled.img`
+const GridRow = styled.div`
     width: 100%;
-    height: 300px;
-    object-fit: cover;
-    margin: 12px 0;
-`;
-
-const ChooseImage = styled.div`
-    cursor: pointer;
-    width: 100%;
-    margin: 12px 0;
-    height: 100%
-    object-fit: contain;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed blue;
-    font-size: 14px;
+`;
+
+const GridItem = styled.div`
+
+    cursor: pointer;
+    background-color: ${({ theme }) => theme.colors['splash.background'] || 'white'};
+    border: 1px solid ${({ theme }) => theme.colors['border.default'] || 'black'};
+    ${({ isSelected, theme }) => isSelected && `
+        background-color: ${theme.colors['button.background'] || 'red'};
+    `}
+    width: 10vw;
+    height: 10vw;
 
     &:hover {
-        background-color: rgba(0,0,0,0.1);
-        text-decoration: underline;
+        ${({ isSelected, theme }) => !isSelected && `background-color: ${theme.colors['button.background#active'] || 'red'}`};
     }
-`;
-
-const Description = styled.textarea`
-    outline: none;
-    border: none;
-    padding: 8px;
-    font-size: 14px;
-    height: 64px;
-    width: calc(100% - 16px);
-    border: 1px solid rgba(0,0,0,0.1);
 `;
 
 class App extends React.PureComponent {
@@ -75,15 +52,11 @@ class App extends React.PureComponent {
 
         this.customVcc = new CustomVcc();
 
+        const initialGrid = Array(10).fill(Array(10).fill(0));
         this.state = {
-            value: {
-                name: '',
-                image: '',
-                description: '',
-            },
+            value: initialGrid,
             theme: this.customVcc.theme,
         };
-
 
         this.customVcc.onUpdate((newProps) => {
             this.setState({
@@ -100,70 +73,35 @@ class App extends React.PureComponent {
     }
 
     componentDidMount() {
-        this.customVcc.register('300px', '480px');
+        this.customVcc.register('500px', '534px');
     }
 
-    onChange(key, value) {
-        this.customVcc.change({
-            ...this.state.value,
-            [key]: value,
-        });
+    onToggle(row, item) {
+        const newValue = [...this.state.value];
+        const newRow = [...newValue[row]];
+        newRow[item] = (newRow[item] === 0) ? 1 : 0;
+        newValue[row] = newRow;
+        this.customVcc.change(newValue);
     }
 
     render() {
-        const {
-            name,
-            image,
-            description,
-        } = this.state.value || {};
-
         return (
-            <Wrapper backgroundColor={this.state.theme.colors['splash.background']}>
-                <Card>
-                    <Title>{this.state.name}</Title>
-                    <Name
-                        value={name}
-                        onChange={(e) => this.onChange('name', e.target.value)}
-                        onFocus={() => this.customVcc.focus()}
-                        onBlur={() => {
-                            this.customVcc.blur();
-                            this.customVcc.save();
-                        }}
-                        placeholder="Character name..."
-                    />
-                    {image ? (
-                        <Image
-                            src={image}
-                            onClick={() => {
-                                this.customVcc.showModal('image', image, (newValue) => {
-                                    this.onChange('image', newValue);
-                                    this.customVcc.save();
-                                });
-                            }}
-                        />
-                    ) : (
-                        <ChooseImage
-                            onClick={() => {
-                                this.customVcc.showModal('image', image, (newValue) => {
-                                    this.onChange('image', newValue);
-                                    this.customVcc.save();
-                                });
-                            }}
-                        >
-                            Select an image...
-                        </ChooseImage>
-                    )}
-                    <Description
-                        value={description}
-                        onChange={(e) => this.onChange('description', e.target.value)}
-                        onFocus={() => this.customVcc.focus()}
-                        onBlur={() => {
-                            this.customVcc.blur();
-                            this.customVcc.save();
-                        }}
-                        placeholder="Character description..."
-                    />
-                </Card>
+            <Wrapper>
+                <Title>{this.state.name}</Title>
+                <Grid theme={this.state.theme}>
+                    {this.state.value.map((row, i) => (
+                        <GridRow key={i}>
+                            {this.state.value[i].map((item, j) => (
+                                <GridItem
+                                    key={`${i}-${j}`}
+                                    isSelected={item === 1}
+                                    onClick={() => this.onToggle(i, j)}
+                                    theme={this.state.theme}
+                                />
+                            ))}
+                        </GridRow>
+                    ))}
+                </Grid>
             </Wrapper>
         );
     }
