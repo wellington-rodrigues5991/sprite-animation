@@ -9,13 +9,11 @@
     "start": "webpack-dev-server --config ./.internals/webpack.development.js --inline --hot"
   },
   "dependencies": {
-    "@withkoji/dispatch": "0.0.8",
-    "@withkoji/vcc": "^1.0.10",
+    "@withkoji/custom-vcc-sdk": "0.0.3",
+    "@withkoji/vcc": "^1.0.18",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0",
-    "styled-components": "^4.2.0",
-    "whatwg-fetch": "^3.0.0"
+    "styled-components": "^4.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",
