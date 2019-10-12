@@ -31,7 +31,6 @@ const GridRow = styled.div`
 `;
 
 const GridItem = styled.div`
-
     cursor: pointer;
     background-color: ${({ theme }) => theme.colors['splash.background'] || 'white'};
     border: 1px solid ${({ theme }) => theme.colors['border.default'] || 'black'};
@@ -82,6 +81,7 @@ class App extends React.PureComponent {
         newRow[item] = (newRow[item] === 0) ? 1 : 0;
         newValue[row] = newRow;
         this.customVcc.change(newValue);
+        this.customVcc.save();
     }
 
     render() {
