@@ -94,7 +94,7 @@ class App extends React.PureComponent {
             state.value.scale = (value.scale == undefined ? state.scale : value.scale);
             state.value.jump = (value.jump == undefined ? state.jump : value.jump);
 
-            console.log(state.value.scale)
+            console.log(state, value)
 
             this.setState({state});
         });
