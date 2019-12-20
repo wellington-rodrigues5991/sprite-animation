@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import CustomVcc from '@withkoji/custom-vcc-sdk';
 
 import Input from './common/input.js';
+import Button from './common/button.js';
 
 const Wrapper = styled.div`
     padding: 0;
@@ -70,6 +71,7 @@ class App extends React.PureComponent {
         
         this.upload = this.upload.bind(this);
         this.updateLabel = this.updateLabel.bind(this);
+        this.clear = this.clear.bind(this);
         
         this.state = {
             value: {
@@ -103,7 +105,6 @@ class App extends React.PureComponent {
     }
 
     componentDidMount() {
-      console.log(this.customVcc)
         this.customVcc.register('100%', '215px');
     }
 
@@ -115,6 +116,14 @@ class App extends React.PureComponent {
             this.customVcc.change(newValue);
             this.customVcc.save();
         });
+    }
+
+    clear(){
+        const newValue = JSON.parse(JSON.stringify(this.state.value));
+        newValue.image = "";
+        
+        this.customVcc.change(newValue);
+        this.customVcc.save();
     }
 
     updateLabel(prop, value){
@@ -132,6 +141,7 @@ class App extends React.PureComponent {
                 <Viewer onClick={this.upload}>
                     <img src={this.state.value.image} width="auto" height="100%" />
                 </Viewer>
+                <Button clear={this.clear} upload={this.upload} />
                 <Container theme={this.state.theme}>
                     <Group theme={this.state.theme}>
                         <span>SCALE</span>
