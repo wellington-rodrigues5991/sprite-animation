@@ -67,8 +67,9 @@ class App extends React.PureComponent {
             state.image = newProps.image;
             state.scale = newProps.scale;
             state.jump = newProps.jump;
+            console.error(state, newProps, this.state);
+            
             this.setState({value: state});
-            console.log(state, newProps)
         });
 
         this.customVcc.onTheme((theme) => {
@@ -86,7 +87,7 @@ class App extends React.PureComponent {
         this.customVcc.showModal('image', 'http://www.xionplayer.com/skins/junior_alves/Mini%20Player%20Mp3_full.jpg', (newUrl) => {
             const newValue = JSON.parse(JSON.stringify(this.state.value));
             newValue.image = newUrl;
-            console.error(newValue);
+            console.error(newValue, this.state);
             //this.customVcc.change(newValue);
             //this.customVcc.save();
         });
