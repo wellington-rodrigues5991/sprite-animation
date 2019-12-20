@@ -32,7 +32,7 @@ code {
     monospace;
 }
 
-input{outline: none !important; width: 100%; border:none; padding: 5px; margin-top: 15px; text-align: right; appearance: none; -webkit-appearance: none}
+input{outline: none !important; width: 100%; border:none; padding: 5px; margin-top: 5px; text-align: right; appearance: none; -webkit-appearance: none}
 label{margin-top: -25px; display: block; font-size: 10pt; margin-left: 5px; opacity: 0.8; float: left}
 
 input:first-child, input:nth-child(2){margin-top: 0px}
