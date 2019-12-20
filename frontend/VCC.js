@@ -24,9 +24,25 @@ const Title = styled.div`
 
 const Container = styled.div`
     border: 1px solid ${({ theme }) => theme.colors['border.default'] || 'black'};
-    width: 100vw;
+    width: 150px;
     display: flex;
     flex-direction: column;
+    position: absolute;
+    top: 0px;
+    left:0px;
+    height: 100%;
+    background: ${({ theme }) => theme.colors['editor.transparencyGridOverlay.background'] || 'black'}
+`;
+
+const Viewer = styled.div`
+    position:absolute;
+    left: 150px;
+    right: 0%;
+    top: 0px;
+    height: 100%;
+    padding: 15px;
+    display: flex;
+    box-sizing: border-box;
 `;
 class App extends React.PureComponent {
     constructor(props) {
@@ -73,8 +89,11 @@ class App extends React.PureComponent {
     render() {
         return (
             <Wrapper theme={this.state.theme}>
-                <Title>{this.state.name}</Title>
+                <Viewer>
+                    <img src={this.state.image} width="auto" height="100%" />
+                </Viewer>
                 <Container theme={this.state.theme}>
+                    <Title>{this.state.name}</Title>
                     <button onClick={this.upload}>Upload image</button>
                 </Container>
             </Wrapper>
