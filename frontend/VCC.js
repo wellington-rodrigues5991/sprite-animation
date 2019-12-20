@@ -24,27 +24,29 @@ const Title = styled.div`
 
 const Container = styled.div`
     border: 1px solid ${({ theme }) => theme.colors['border.default'] || 'black'};
-    width: 216px;
+    width: 150px;
     display: flex;
     flex-direction: column;
     position: absolute;
-    top: 0px;
-    left:0px;
-    height: 100%;
+    top: 10px;
+    left:10px;
+    height: calc(100% - 20px);
+    padding: 20px;
+    box-sizing: border-box;
     background: ${({ theme }) => theme.colors['editor.transparencyGridOverlay.background'] || 'black'}
 `;
 
 const Viewer = styled.div`
     position:absolute;
-    left: 216px;
+    left: 170px;
     right: 0%;
     top: 0px;
     height: 100%;
     padding: 20px;
+    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
 `;
 class App extends React.PureComponent {
     constructor(props) {
