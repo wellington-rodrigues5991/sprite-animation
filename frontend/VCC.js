@@ -6,8 +6,10 @@ const Wrapper = styled.div`
     padding: 0;
     margin: 0;
     width: 100vw;
-    display: flex;
-    flex-direction: column;
+    height: 100vh;
+    position: fixed; 
+    top: 0px;
+    left: 0px;
     ${({ theme }) => theme.mixins['card.default'] || ''}
     background: url('data:image/svg+xml, ${({ theme }) => theme.mixins["background.transparencyGrid"] || ""}') 0% 0% / 18px 18px ${({ theme }) => theme.colors["editor.transparencyGridOverlay.background"] || ""};
 `;
