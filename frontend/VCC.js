@@ -86,6 +86,7 @@ class App extends React.PureComponent {
     }
 
     render() {
+        console.log(this.state.value.image, 'novo')
         return (
             <Wrapper theme={this.state.theme}>
                 <Viewer>
