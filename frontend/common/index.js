@@ -28,7 +28,8 @@ const render = Component => {
 }
 
 render(App);
-
+/*
 if (module.hot) {
     module.hot.accept('../VCC', () => { render(App) });
 }
+*/
