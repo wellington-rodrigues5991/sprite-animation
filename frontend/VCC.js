@@ -111,8 +111,10 @@ class App extends React.PureComponent {
 
     updateLabel(prop, value){
         const newValue = JSON.parse(JSON.stringify(this.state.value));
-        if(prop != 'jump Height') newValue.scale[prop] = parseFloat(value);
+        if(prop != 'Jump Height') newValue.scale[prop] = parseFloat(value);
         else newValue.jump = parseFloat(value);
+
+        console.log(prop != 'Jump Height', prop)
         
         this.customVcc.change(newValue);
         this.customVcc.save();
