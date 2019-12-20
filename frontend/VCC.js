@@ -86,15 +86,11 @@ class App extends React.PureComponent {
             const state = this.state;
             const value = newProps.value;
 
-            state.value.image = (
-                value.image == undefined ? 
-                state.image :
-                value.image
-            );
+            state.value.image = ( value.image == undefined ? state.image : value.image);
             state.value.scale = (value.scale == undefined ? state.scale : value.scale);
             state.value.jump = (value.jump == undefined ? state.jump : value.jump);
 
-            console.log(state, value)
+            console.log(value.image == undefined)
 
             this.setState({state});
         });
