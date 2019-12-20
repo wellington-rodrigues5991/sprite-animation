@@ -60,7 +60,7 @@ class App extends React.PureComponent {
         this.customVcc = new CustomVcc();
         
         this.upload = this.upload.bind(this);
-        this.changeProp = this.changeProp.bind(this);
+        this.updateLabel = this.updateLabel.bind(this);
         
         this.state = {
             value: {
@@ -82,8 +82,8 @@ class App extends React.PureComponent {
                 state.image :
                 value.image
             );
-            state.value.scale = (value.scale == undefined ? state.scale.value : value.scale);
-            state.value.jump = (value.jump == undefined ? state.jump.value : value.jump);
+            state.value.scale = (value.scale == undefined ? state.scale : value.scale);
+            state.value.jump = (value.jump == undefined ? state.jump : value.jump);
 
             this.setState({state}, () => console.log(this.state.value.image, typeof this.state.value.image));
         });
@@ -109,7 +109,7 @@ class App extends React.PureComponent {
         });
     }
 
-    changeProp(prop, value){
+    updateLabel(prop, value){
         const newValue = JSON.parse(JSON.stringify(this.state.value));
         if(prop != 'jump Height') newValue.scale[prop] = parseFloat(value);
         else newValue.jump = parseFloat(value);
@@ -126,10 +126,10 @@ class App extends React.PureComponent {
                 </Viewer>
                 <Container theme={this.state.theme}>
                     <Group title="Scale">
-                        <Input label="x" value={this.state.value.scale.x} change={this.changeProp} />
-                        <Input label="y" value={this.state.value.scale.y} change={this.changeProp} />
+                        <Input label="x" value={this.state.value.scale.x} change={this.updateLabel} />
+                        <Input label="y" value={this.state.value.scale.y} change={this.updateLabel} />
                     </Group>
-                    <Input label="Jump Height" value={this.state.value.jump} change={this.changeProp} />
+                    <Input label="Jump Height" value={this.state.value.jump} change={this.updateLabel} />
                 </Container>
             </Wrapper>
         );
