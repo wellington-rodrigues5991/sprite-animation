@@ -87,7 +87,7 @@ class App extends React.PureComponent {
         this.customVcc.showModal('image', 'http://www.xionplayer.com/skins/junior_alves/Mini%20Player%20Mp3_full.jpg', (newUrl) => {
             const newValue = JSON.parse(JSON.stringify(this.state.value));
             newValue.image = newUrl;
-            console.error(newValue, this.state);
+            console.error(newValue, this.state.value, JSON.stringify(this.state.value));
             //this.customVcc.change(newValue);
             //this.customVcc.save();
         });
