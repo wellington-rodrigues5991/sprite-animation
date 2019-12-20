@@ -40,8 +40,10 @@ const Viewer = styled.div`
     right: 0%;
     top: 0px;
     height: 100%;
-    padding: 15px;
+    padding: 20px;
     display: flex;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
 `;
 class App extends React.PureComponent {
