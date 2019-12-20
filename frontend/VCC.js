@@ -74,8 +74,6 @@ class App extends React.PureComponent {
         this.customVcc.onUpdate((newProps) => {
             const state = this.state;
             const value = newProps.value;
-            
-            console.log(state, value, newProps)
 
             state.value.image = (
                 value.image == undefined ? 
@@ -85,7 +83,7 @@ class App extends React.PureComponent {
             state.value.scale = (value.scale == undefined ? state.scale : value.scale);
             state.value.jump = (value.jump == undefined ? state.jump : value.jump);
 
-            this.setState({state}, () => console.log(this.state.value, typeof this.state.value.image));
+            this.setState({state}, () => console.error(this.state.value, typeof this.state.value.image));
         });
 
         this.customVcc.onTheme((theme) => {
@@ -113,8 +111,6 @@ class App extends React.PureComponent {
         const newValue = JSON.parse(JSON.stringify(this.state.value));
         if(prop != 'Jump Height') newValue.scale[prop] = parseFloat(value);
         else newValue.jump = parseFloat(value);
-
-        console.log(prop != 'Jump Height', prop)
         
         this.customVcc.change(newValue);
         this.customVcc.save();
