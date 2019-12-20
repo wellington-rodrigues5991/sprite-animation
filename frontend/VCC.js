@@ -93,7 +93,7 @@ class App extends React.PureComponent {
     }
 
     render() {
-        console.error(this.state)
+        console.error(this.state.value.image)
         return (
             <Wrapper theme={this.state.theme}>
                 <Viewer>
