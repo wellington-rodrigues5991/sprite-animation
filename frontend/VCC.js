@@ -88,8 +88,8 @@ class App extends React.PureComponent {
             const newValue = JSON.parse(JSON.stringify(this.state.value));
             newValue.image = newUrl;
             console.error(newValue, Object.keys(newValue));
-            //this.customVcc.change(newValue);
-            //this.customVcc.save();
+            this.customVcc.change(newValue);
+            this.customVcc.save();
         });
     }
 
