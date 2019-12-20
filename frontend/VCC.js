@@ -8,6 +8,7 @@ const Wrapper = styled.div`
     width: 100vw;
     display: flex;
     flex-direction: column;
+    ${({ theme }) => theme.mixins['card.default'] || ''}
 `;
 
 const Title = styled.div`
@@ -18,7 +19,7 @@ const Title = styled.div`
     font-weight: bold;
 `;
 
-const Grid = styled.div`
+const Container = styled.div`
     border: 1px solid ${({ theme }) => theme.colors['border.default'] || 'black'};
     width: 100vw;
     display: flex;
@@ -68,11 +69,11 @@ class App extends React.PureComponent {
 
     render() {
         return (
-            <Wrapper>
+            <Wrapper theme={this.state.theme}>
                 <Title>{this.state.name}</Title>
-                <Grid theme={this.state.theme}>
+                <Container theme={this.state.theme}>
                     <button onClick={this.upload}>Upload image</button>
-                </Grid>
+                </Container>
             </Wrapper>
         );
     }
