@@ -104,7 +104,7 @@ class App extends React.PureComponent {
 
     componentDidMount() {
       console.log(this.customVcc)
-        this.customVcc.register('100%', '200px');
+        this.customVcc.register('100%', '205px');
     }
 
     upload(){
