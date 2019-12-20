@@ -16,7 +16,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import './index.css';
-import App from '../CustomControl';
+import App from '../VCC';
 
 const render = Component => {
     ReactDOM.render(
@@ -30,5 +30,5 @@ const render = Component => {
 render(App);
 
 if (module.hot) {
-    module.hot.accept('../CustomControl', () => { render(App) });
+    module.hot.accept('../VCC', () => { render(App) });
 }
