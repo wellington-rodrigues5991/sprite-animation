@@ -98,6 +98,7 @@ class App extends React.PureComponent {
         });
 
         this.customVcc.onTheme((theme) => {
+            console.log(theme);
             this.setState({
                 theme
             });
