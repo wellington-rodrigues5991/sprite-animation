@@ -56,7 +56,8 @@ const Group = styled.div`
     color: ${({ theme }) => theme.colors['input.foreground'] || 'white'}
 
     & span{
-        padding-bottom: 40px
+        padding-bottom: 5px;
+        display: block;
     }
 `;
 
@@ -136,7 +137,10 @@ class App extends React.PureComponent {
                         <Input theme={this.state.theme} label="x" value={this.state.value.scale.x} change={this.updateLabel} />
                         <Input theme={this.state.theme} label="y" value={this.state.value.scale.y} change={this.updateLabel} />
                     </Group>
-                    <Input theme={this.state.theme} label="Jump Height" value={this.state.value.jump} change={this.updateLabel} />
+                    <Group theme={this.state.theme}>
+                        <span>Jump Height</span>
+                        <Input theme={this.state.theme} label="Jump Height" value={this.state.value.jump} change={this.updateLabel} />
+                    </Group>
                 </Container>
             </Wrapper>
         );

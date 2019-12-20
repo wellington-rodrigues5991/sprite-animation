@@ -29,7 +29,7 @@ export default class Input extends React.PureComponent {
     render(){
         return <>
             <Text theme={this.props.theme} type="number" ref={this.selector} defaultValue={this.props.value} onChange={this.updateProp} />
-            <Label theme={this.props.theme}>{this.props.label}</Label>
+            {this.props.label != "Jump Height" && <Label theme={this.props.theme}>{this.props.label}</Label>}
         </>;
     }
 }
