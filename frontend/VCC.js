@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import CustomVcc from '@withkoji/custom-vcc-sdk';
 
+import Input from './common/input.js';
+
 const Wrapper = styled.div`
     padding: 0;
     margin: 0;
@@ -48,13 +50,17 @@ const Viewer = styled.div`
     align-items: center;
     justify-content: center;
 `;
+
+const Group = styled.div``;
+
 class App extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.customVcc = new CustomVcc();
         
-        this.upload = this.upload.bind(this)
+        this.upload = this.upload.bind(this);
+        this.changeProp = this.changeProp.bind(this);
         
         this.state = {
             value: {
@@ -98,6 +104,14 @@ class App extends React.PureComponent {
         });
     }
 
+    changeProp(prop, value){
+        const newValue = JSON.parse(JSON.stringify(this.state.value));
+        newValue[prop] = value;
+        
+        this.customVcc.change(newValue);
+        this.customVcc.save();
+    }
+
     render() {
         console.log(this.state.value.image)
         return (
@@ -106,7 +120,11 @@ class App extends React.PureComponent {
                     <img src={this.state.value.image} width="auto" height="100%" />
                 </Viewer>
                 <Container theme={this.state.theme}>
-                    <Title>{this.state.name}</Title>
+                    <Group title="Scale">
+                        <Input label="Jump Height" value={this.state.value.jump} />
+                        <Input label="Jump Height" value={this.state.value.jump} />
+                    </Group>
+                    <Input label="Jump Height" value={this.state.value.jump} change={changeProp} />
                 </Container>
             </Wrapper>
         );
