@@ -18,10 +18,14 @@ const Button = styled.div`
     text-transform: uppercase;
     line-height: 1;
     font-size: 11px;
-    background-color: rgb(53, 138, 235);
+    background-color: rgb(21, 122, 251);
     color: rgb(211, 211, 211);
     padding: 4px;
     
+    &:hover{
+        background-color: rgb(53, 138, 235)
+    }
+
     & svg{
         width: 18px;
         height: 18px;
