@@ -58,6 +58,7 @@ const Group = styled.div`
     & span{
         padding-bottom: 5px;
         display: block;
+        font-size: 10pt
     }
 `;
 
@@ -133,12 +134,12 @@ class App extends React.PureComponent {
                 </Viewer>
                 <Container theme={this.state.theme}>
                     <Group theme={this.state.theme}>
-                        <span>Scale</span>
+                        <span>SCALE</span>
                         <Input theme={this.state.theme} label="x" value={this.state.value.scale.x} change={this.updateLabel} />
                         <Input theme={this.state.theme} label="y" value={this.state.value.scale.y} change={this.updateLabel} />
                     </Group>
                     <Group theme={this.state.theme}>
-                        <span>Jump Height</span>
+                        <span>JUMP HEIGHT</span>
                         <Input theme={this.state.theme} label="Jump Height" value={this.state.value.jump} change={this.updateLabel} />
                     </Group>
                 </Container>
