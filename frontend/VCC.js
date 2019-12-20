@@ -43,7 +43,6 @@ const Viewer = styled.div`
     padding: 15px;
     display: flex;
     box-sizing: border-box;
-    background: url('${props => props.image}')
 `;
 class App extends React.PureComponent {
     constructor(props) {
@@ -99,7 +98,9 @@ class App extends React.PureComponent {
         console.log(this.state.value.image)
         return (
             <Wrapper theme={this.state.theme}>
-                <Viewer image={this.state.value.image} />
+                <Viewer>
+                    <img src={this.state.value.image} width="auto" height="100%" />
+                </Viewer>
                 <Container theme={this.state.theme}>
                     <Title>{this.state.name}</Title>
                     <button onClick={this.upload}>Upload image</button>
