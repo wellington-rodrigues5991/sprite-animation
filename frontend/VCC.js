@@ -57,7 +57,7 @@ class App extends React.PureComponent {
     }
 
     componentDidMount() {
-        this.customVcc.register('500px', '534px');
+        this.customVcc.register('100%', '200px');
         console.log(this.customVcc)
     }
 
