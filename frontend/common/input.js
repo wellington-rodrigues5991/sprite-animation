@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 const Text = styled.input`
     background: ${({ theme }) => theme.colors['input.background'] || ''};
-    color: ${({ theme }) => theme.colors['input.foreground'] || ''}
+    color: ${({ theme }) => theme.colors['input.foreground'] || ''};
+    font-family: ${({ theme }) => theme.colors['font.defaultFamily'] || ''};
 `;
 
 const Label = styled.label`

@@ -14,6 +14,7 @@ const Wrapper = styled.div`
     left: 0px;
     ${({ theme }) => theme.mixins['card.default'] || ''}
     background: url('data:image/svg+xml, ${({ theme }) => theme.mixins["background.transparencyGrid"] || ""}') 0% 0% / 18px 18px ${({ theme }) => theme.colors["editor.transparencyGridOverlay.background"] || ""};
+    font-family: ${({ theme }) => theme.colors['font.defaultFamily'] || ''};
 `;
 
 const Title = styled.div`
