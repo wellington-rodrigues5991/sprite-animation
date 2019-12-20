@@ -35,6 +35,7 @@ const Container = styled.div`
     height: calc(100% - 20px);
     padding: 20px;
     box-sizing: border-box;
+    backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     background: ${({ theme }) => theme.colors['editor.transparencyGridOverlay.background'] || 'black'}
 `;
