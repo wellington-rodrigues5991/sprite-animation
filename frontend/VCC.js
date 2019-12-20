@@ -51,7 +51,14 @@ const Viewer = styled.div`
     justify-content: center;
 `;
 
-const Group = styled.div``;
+const Group = styled.div`
+    padding-bottom: 30px;
+    color: ${({ theme }) => theme.colors['input.foreground'] || 'white'}
+
+    & span{
+        padding-bottom: 40px
+    }
+`;
 
 class App extends React.PureComponent {
     constructor(props) {
@@ -124,7 +131,8 @@ class App extends React.PureComponent {
                     <img src={this.state.value.image} width="auto" height="100%" />
                 </Viewer>
                 <Container theme={this.state.theme}>
-                    <Group title="Scale">
+                    <Group theme={this.state.theme}>
+                        <span>Scale</span>
                         <Input theme={this.state.theme} label="x" value={this.state.value.scale.x} change={this.updateLabel} />
                         <Input theme={this.state.theme} label="y" value={this.state.value.scale.y} change={this.updateLabel} />
                     </Group>
