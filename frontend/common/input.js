@@ -5,6 +5,7 @@ const Text = styled.input`
     background: ${({ theme }) => theme.colors['input.background'] || ''};
     color: ${({ theme }) => theme.colors['input.foreground'] || ''};
     font-family: ${({ theme }) => theme.colors['font.defaultFamily'] || ''};
+    box-shadow: 0px 0px 0px 1px ${({ theme }) => theme.colors['border.default'] || 'black'};
 `;
 
 const Label = styled.label`
