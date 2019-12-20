@@ -66,7 +66,6 @@ class App extends React.PureComponent {
                 ...this.state,
                 ...newProps,
             });
-
             
             console.log(newProps)
         });
@@ -84,6 +83,9 @@ class App extends React.PureComponent {
 
     upload(){
         this.customVcc.showModal('image', 'http://www.xionplayer.com/skins/junior_alves/Mini%20Player%20Mp3_full.jpg', (newUrl) => {
+            
+            console.log(newUrl);
+            alert(newUrl)
         });
     }
 
