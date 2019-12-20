@@ -9,6 +9,7 @@ const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     ${({ theme }) => theme.mixins['card.default'] || ''}
+    background: url('data:image/svg+xml, ${({ theme }) => theme.mixins["background.transparencyGrid"] || ""}') 0% 0% / 18px 18px ${({ theme }) => theme.colors["editor.transparencyGridOverlay.background"] || ""};
 `;
 
 const Title = styled.div`
@@ -63,7 +64,7 @@ class App extends React.PureComponent {
 
     upload(){
         this.customVcc.showModal('image', 'http://www.xionplayer.com/skins/junior_alves/Mini%20Player%20Mp3_full.jpg', (newUrl) => {
-            console.log(newUrl)
+            //console.log(newUrl)
         });
     }
 
