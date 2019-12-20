@@ -69,7 +69,7 @@ class App extends React.PureComponent {
             state.scale = (value.scale == undefined ? state.scale : value.scale);
             state.jump = (value.jump == undefined ? state.jump : value.jump);
 
-            console.error(newProps.value, state.image, value.image)
+            console.error(this.state)
             this.setState({value: state});
         });
 
@@ -95,6 +95,7 @@ class App extends React.PureComponent {
     }
 
     render() {
+        console.log(this.state)
         return (
             <Wrapper theme={this.state.theme}>
                 <Viewer>
