@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Text = styled.input`
-    background: ${({ theme }) => theme.mixins['input.background'] || ''};
-    color: ${({ theme }) => theme.mixins['input.foreground'] || ''}
+    background: ${({ theme }) => theme.colors['input.background'] || ''};
+    color: ${({ theme }) => theme.colors['input.foreground'] || ''}
 `;
 
 const Label = styled.label`
-    color: ${({ theme }) => theme.mixins['input.foreground'] || ''}
+    color: ${({ theme }) => theme.colors['input.foreground'] || ''}
 `;
 
 export default class Input extends React.PureComponent {
