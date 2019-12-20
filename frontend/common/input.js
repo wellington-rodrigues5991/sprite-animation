@@ -14,7 +14,7 @@ export default class Input extends React.PureComponent {
     }
 
     render(){
-        console.error(props)
+        console.error(this.props)
         return <>
             <label>{this.props.label}</label>
             <input type="number" ref={this.selector} defaultValue={this.props.value} onChange={this.updateProp} />
