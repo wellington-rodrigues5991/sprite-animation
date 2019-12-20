@@ -61,11 +61,8 @@ class App extends React.PureComponent {
             theme: this.customVcc.theme,
         };
 
-        this.customVcc.onUpdate((newProps) => {
-            this.setState({
-                ...this.state,
-                ...newProps,
-            });
+        this.customVcc.onUpdate(() => {
+            this.setState({value: newProps});
             
             console.log(newProps)
         });
@@ -83,9 +80,10 @@ class App extends React.PureComponent {
 
     upload(){
         this.customVcc.showModal('image', 'http://www.xionplayer.com/skins/junior_alves/Mini%20Player%20Mp3_full.jpg', (newUrl) => {
-            
-            console.log(newUrl);
-            alert(newUrl)
+            const newValue = JSON.parse(JSON.stringify(this.state.value));
+            newValue.image = newUrl;   
+            this.customVcc.change(newValue);
+            this.customVcc.save();
         });
     }
 
@@ -93,7 +91,7 @@ class App extends React.PureComponent {
         return (
             <Wrapper theme={this.state.theme}>
                 <Viewer>
-                    <img src={this.state.image} width="auto" height="100%" />
+                    <img src={this.state.value.image} width="auto" height="100%" />
                 </Viewer>
                 <Container theme={this.state.theme}>
                     <Title>{this.state.name}</Title>
