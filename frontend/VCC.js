@@ -61,7 +61,7 @@ class App extends React.PureComponent {
             theme: this.customVcc.theme,
         };
 
-        this.customVcc.onUpdate(() => {
+        this.customVcc.onUpdate((newProps) => {
             this.setState({value: newProps});
             
             console.log(newProps)
