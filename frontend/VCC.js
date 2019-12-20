@@ -74,12 +74,17 @@ class App extends React.PureComponent {
         this.customVcc.onUpdate((newProps) => {
             const state = this.state;
             const value = newProps.value;
+            
+            console.log(state, value, newProps)
 
-            state.value.image = (value.image == undefined ? state.image.value : value.image);
+            state.value.image = (
+                value.image == undefined ? 
+                state.image :
+                value.image
+            );
             state.value.scale = (value.scale == undefined ? state.scale.value : value.scale);
             state.value.jump = (value.jump == undefined ? state.jump.value : value.jump);
 
-            console.error(this.state.value.image)
             this.setState({state}, () => console.log(this.state.value.image, typeof this.state.value.image));
         });
 
@@ -106,14 +111,14 @@ class App extends React.PureComponent {
 
     changeProp(prop, value){
         const newValue = JSON.parse(JSON.stringify(this.state.value));
-        newValue[prop] = value;
+        if(prop != 'jump Height') newValue.scale[prop] = parseFloat(value);
+        else newValue.jump = parseFloat(value);
         
         this.customVcc.change(newValue);
         this.customVcc.save();
     }
 
     render() {
-        console.log(this.state.value.image)
         return (
             <Wrapper theme={this.state.theme}>
                 <Viewer onClick={this.upload}>
@@ -121,10 +126,10 @@ class App extends React.PureComponent {
                 </Viewer>
                 <Container theme={this.state.theme}>
                     <Group title="Scale">
-                        <Input label="Jump Height" value={this.state.value.jump} />
-                        <Input label="Jump Height" value={this.state.value.jump} />
+                        <Input label="x" value={this.state.value.scale.x} change={this.changeProp} />
+                        <Input label="y" value={this.state.value.scale.y} change={this.changeProp} />
                     </Group>
-                    <Input label="Jump Height" value={this.state.value.jump} change={changeProp} />
+                    <Input label="Jump Height" value={this.state.value.jump} change={this.changeProp} />
                 </Container>
             </Wrapper>
         );
