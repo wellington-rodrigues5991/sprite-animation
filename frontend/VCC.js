@@ -24,7 +24,7 @@ const Title = styled.div`
 
 const Container = styled.div`
     border: 1px solid ${({ theme }) => theme.colors['border.default'] || 'black'};
-    width: 150px;
+    width: 216px;
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -36,7 +36,7 @@ const Container = styled.div`
 
 const Viewer = styled.div`
     position:absolute;
-    left: 150px;
+    left: 216px;
     right: 0%;
     top: 0px;
     height: 100%;
@@ -77,12 +77,11 @@ class App extends React.PureComponent {
 
     componentDidMount() {
         this.customVcc.register('100%', '200px');
-        console.log(this.customVcc)
     }
 
     upload(){
         this.customVcc.showModal('image', 'http://www.xionplayer.com/skins/junior_alves/Mini%20Player%20Mp3_full.jpg', (newUrl) => {
-            //console.log(newUrl)
+            console.log(newUrl)
         });
     }
 
