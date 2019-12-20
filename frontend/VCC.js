@@ -26,7 +26,6 @@ const Title = styled.div`
 `;
 
 const Container = styled.div`
-    border: 1px solid ${({ theme }) => theme.colors['border.default'] || 'black'};
     width: 150px;
     display: flex;
     flex-direction: column;
@@ -36,6 +35,7 @@ const Container = styled.div`
     height: calc(100% - 20px);
     padding: 20px;
     box-sizing: border-box;
+    -webkit-backdrop-filter: blur(20px);
     background: ${({ theme }) => theme.colors['editor.transparencyGridOverlay.background'] || 'black'}
 `;
 
