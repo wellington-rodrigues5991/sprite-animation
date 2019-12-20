@@ -83,7 +83,7 @@ class App extends React.PureComponent {
             state.value.scale = (value.scale == undefined ? state.scale : value.scale);
             state.value.jump = (value.jump == undefined ? state.jump : value.jump);
 
-            this.setState({state}, () => console.error(this.state.value, typeof this.state.value.image));
+            this.setState({state});
         });
 
         this.customVcc.onTheme((theme) => {
