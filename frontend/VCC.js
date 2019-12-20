@@ -125,10 +125,10 @@ class App extends React.PureComponent {
                 </Viewer>
                 <Container theme={this.state.theme}>
                     <Group title="Scale">
-                        <Input label="x" value={this.state.value.scale.x} change={this.updateLabel} />
-                        <Input label="y" value={this.state.value.scale.y} change={this.updateLabel} />
+                        <Input theme={this.state.theme} label="x" value={this.state.value.scale.x} change={this.updateLabel} />
+                        <Input theme={this.state.theme} label="y" value={this.state.value.scale.y} change={this.updateLabel} />
                     </Group>
-                    <Input label="Jump Height" value={this.state.value.jump} change={this.updateLabel} />
+                    <Input theme={this.state.theme} label="Jump Height" value={this.state.value.jump} change={this.updateLabel} />
                 </Container>
             </Wrapper>
         );

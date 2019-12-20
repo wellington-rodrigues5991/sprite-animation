@@ -1,6 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const Text = styled.input`
+    background: ${({ theme }) => theme.mixins['input.background'] || ''};
+    color: ${({ theme }) => theme.mixins['input.foreground'] || ''}
+`;
+
+const Label = styled.label`
+    color: ${({ theme }) => theme.mixins['input.foreground'] || ''}
+`;
+
 export default class Input extends React.PureComponent {
     constructor(props){
         super(props);
@@ -19,8 +28,8 @@ export default class Input extends React.PureComponent {
 
     render(){
         return <>
-            <input type="number" ref={this.selector} defaultValue={this.props.value} onChange={this.updateProp} />
-            <label>{this.props.label}</label>
+            <Text theme={this.props.theme} type="number" ref={this.selector} defaultValue={this.props.value} onChange={this.updateProp} />
+            <Label theme={this.props.theme}>{this.props.label}</Label>
         </>;
     }
 }
