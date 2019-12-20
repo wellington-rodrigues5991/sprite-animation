@@ -55,6 +55,10 @@ class App extends React.PureComponent {
         });
     }
 
+    componentDidMount() {
+        this.customVcc.register('500px', '534px');
+    }
+
     upload(){
         this.customVcc.showModal('image', currentImageUrl, (newUrl) => {
             console.log(newUrl)
