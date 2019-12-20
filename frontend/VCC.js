@@ -62,15 +62,15 @@ class App extends React.PureComponent {
         };
 
         this.customVcc.onUpdate((newProps) => {
-            const state = this.state.value;
+            const state = this.state;
             const value = newProps.value;
 
-            state.image = (value.image == undefined ? state.image : value.image);
-            state.scale = (value.scale == undefined ? state.scale : value.scale);
-            state.jump = (value.jump == undefined ? state.jump : value.jump);
+            state.value.image = (value.image == undefined ? state.image.value : value.image);
+            state.value.scale = (value.scale == undefined ? state.scale.value : value.scale);
+            state.value.jump = (value.jump == undefined ? state.jump.value : value.jump);
 
             console.error(this.state.value.image)
-            this.setState({value: state});
+            this.setState(state);
         });
 
         this.customVcc.onTheme((theme) => {
