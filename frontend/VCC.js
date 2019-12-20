@@ -56,7 +56,7 @@ class App extends React.PureComponent {
     }
 
     upload(){
-        customVcc.showModal('image', currentImageUrl, (newUrl) => {
+        this.customVcc.showModal('image', currentImageUrl, (newUrl) => {
             console.log(newUrl)
         });
     }
