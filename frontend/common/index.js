@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from '././navigation/App';
 import Platform from '././navigation/Platform';
 import ContextMenu from '././navigation/ContextMenu';
+import { AppContainer } from 'react-hot-loader';
 import {customVcc} from './VCC';
 
 console.log(customVcc);
@@ -122,7 +123,20 @@ window.config.parent.addEventListener('mouseup', () => window.config.start(null,
 window.config.parent.addEventListener('touchend', () => window.config.start(null, null, null));
 document.body.addEventListener("mouseleave", () => window.config.start(null, null, null));
 
-window.config.grid.calculate()
-
-ReactDOM.render(<App />, document.getElementById('blocks'));
+window.config.grid.calculate();
 ReactDOM.render(<ContextMenu />, document.getElementById('overlay'));
+
+const render = Component => {
+    ReactDOM.render(
+        <AppContainer>
+            <Component />
+        </AppContainer>,
+        document.getElementById('blocks')
+    );
+}
+
+render(App);
+
+if (module.hot) {
+    module.hot.accept('././navigation/App', () => { render(App) });
+}
