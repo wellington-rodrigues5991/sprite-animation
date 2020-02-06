@@ -11,7 +11,7 @@ const Wrapper = styled.div`
     top: 0px;
     left: 0px;
     overflow: hidden;
-    transform: translateZ(1px); 
+    transform: translateZ(1px);
 `;
 
 const Container = styled.div`
@@ -70,9 +70,9 @@ export default function Editor({mailer, setMailer}) {
 
             target.elem.style.left = x + target.pos.x +'px'
             target.elem.style.top = y + target.pos.y +'px';
-            
-            gridContainer.current.parentNode.style.overflow = 'hidden'
         }
+        
+        gridContainer.current.parentNode.style.overflow = 'hidden'
     }
 
     const End = e => {

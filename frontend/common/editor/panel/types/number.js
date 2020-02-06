@@ -5,7 +5,7 @@ const Wrapper = styled.div`
     width: 100%;
 
     & input {
-        /*-webkit-appearance: none;
+        -webkit-appearance: none;
         appearance: none;
         width: 48px;
         height: 40px;
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
         background: var(--color-primary);
         box-shadow: 0px 0px 0px 1px var(--border-color) inset;
         transform: ${props => props.wrap == true ? 'translateY(-30px)' : 'translateY(0px)'};
-        float: ${props => props.wrap == true ? 'right' : ''};*/
+        float: ${props => props.wrap == true ? 'right' : ''};
     }
 
     & input[type=number]::-webkit-inner-spin-button {
@@ -85,7 +85,5 @@ export default function Number({value, change, opt, wrap, blur}) {
             }}
             onBlur={e =>{if(blur != undefined) blur(e.target.value)}}
         />
-
-        <input editable={true}/>
     </Wrapper>;
 }

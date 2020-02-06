@@ -23,7 +23,6 @@ const Button = styled.div`
     right: 0px;
     position: absolute;
     transform: scale(1);
-    z-index: 10000;
 `;
 const Btn = styled.div`
     width: 100%;

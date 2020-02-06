@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import Line from '../panel/line';
+import Editor from './editor';
 
 const Wrapper = styled.div`
     position: fixed;
@@ -30,10 +31,12 @@ const Bar = styled.div`
     height: ${props => props.open ? '70px' : '60px'};
     background: var(--back-default);
     box-shadow: 0px 0px 0px 1px var(--border-color) inset;
-    position: fixed;
+    position: absolute;    
+    display: block;
     bottom: ${props => props.open ? '20px' : '25px'};
     left: ${props => props.open ? '20px' : '25px'};
     transition: all 0.5s;
+    transform: translateZ(1.2px);
     overflow: hidden;
 `;
 
@@ -111,13 +114,14 @@ const Block = styled.div`
 
 const Panel = styled.div`
   width: ${props => window.innerWidth < 450 ? 'calc(100% - 40px)' : '250px'};
-  position: absolute;
+  position: fixed;
   bottom: ${props => props.selection != -1 ? '95px' : '-200px'};
   opacity: ${props => props.selection != -1 ? '1' : '0'};
   left: 20px;
   padding: 10px;
   box-sizing: border-box;
   transition: all 0.5s;  
+  transform: translateZ(300px);
 `;
 
 const Button = styled.div`
@@ -199,18 +203,9 @@ export default function BackgroundManager({mailer, setMailer, children}) {
     <Close open={status} onClick={() => Open(false)} />
     <Wrapper open={status} id="backgrounds">
       {mailer.background.data.map((v, i) => <Background key={i} color={v.color} depth={v.depth} />)}
-      {children}
+      <Editor mailer={mailer} setMailer={setMailer} />
+      {/*children*/}
     </Wrapper>    
-    <Bar open={status} onClick={() => Open(true)}>
-      <Content open={status}>
-          <Inner size={mailer.background.data.length}>
-              {mailer.background.data.map((v, i) => <Block key={i} i={i} selection={mailer.selection.background} >
-                    <Background onClick={() => Select(i)} color={v.color} depth={0} />
-                </Block>)}
-            </Inner>
-      </Content>
-      <Add open={status} onClick={add} />
-    </Bar>
     <Panel selection={mailer.selection.background}>
         <Line 
             title="Depth" 
@@ -224,5 +219,15 @@ export default function BackgroundManager({mailer, setMailer, children}) {
         <Button onClick={() => Remove(mailer.selection.background)} />
         <Button onClick={() => mailer.open(url => Change(url, 'color'))} style={{marginRight: '0px'}} />
     </Panel>
+    <Bar open={status} onClick={() => Open(true)}>
+        <Content open={status}>
+            <Inner size={mailer.background.data.length}>
+                {mailer.background.data.map((v, i) => <Block key={i} i={i} selection={mailer.selection.background} >
+                        <Background onClick={() => Select(i)} color={v.color} depth={0} />
+                    </Block>)}
+                </Inner>
+        </Content>
+        <Add open={status} onClick={add} />
+    </Bar>
   </>;
 }

@@ -109,6 +109,7 @@ class VCC extends React.PureComponent {
     }
 
     update(props){
+        console.log('update')
         const data = {
             grid: props.grid,
             platforms: props.platform == undefined ? [] : props.platform.movable == undefined ? [] : props.platform.movable.platform,
