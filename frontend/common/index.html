@@ -24,7 +24,7 @@
         --font-family: '';
       }
       *{ user-select: none; -webkit-user-select: none; image-rendering: pixelated; padding: 0px; margin: 0px; box-sizing: border-box;  outline: none !important; color: var(--text-color) !important; font-family: var(--font-family) }
-      
+      input{user-select: auto; -webkit-user-select: auto;}
       ::-webkit-scrollbar { width: 6px; height: 6px; background: transparent; }
       ::-webkit-scrollbar-button { width: 10px; height: 10px; background: transparent; }
       ::-webkit-scrollbar-thumb { background: var(--border-color); box-shadow: 0px 0px 0px 10px var(--border-color) inset, 0px 0px 0px 10px var(--border-color) inset; border-radius: 50px; }
@@ -35,13 +35,12 @@
       :-ms-input-placeholder { color: var(--border-color); }
       ::placeholder { color: var(--border-color); }
 
-      #root{ -webkit-perspective: 30000px; perspective: 30000px; z-index: 0; width: 100vw; height: 100vh; display: none}
+      #root{ -webkit-perspective: 30000px; perspective: 30000px; z-index: 0; width: 100vw; height: 100vh}
       body{ overflow: hidden; background: var(--color-base); }
     </style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <input />
     <div id="root"></div>
   </body>
 </html>
