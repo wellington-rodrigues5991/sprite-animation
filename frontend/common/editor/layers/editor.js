@@ -79,9 +79,11 @@ export default function Editor({mailer, setMailer}) {
         const target = mailer.block.movable.active ? mailer.block.movable : mailer.platform.movable;
         const elem = target.elem;
         let event = { x: e.clientX, y: e.clientY };
+        
+        gridContainer.current.parentNode.style.overflow = 'auto';
 
         if(e.changedTouches != undefined) event = { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
-        if(target.active == false) return;
+        if(target.active == false) return;        
 
         if(target.type == 'block'){
             let pos = elem.getBoundingClientRect();
@@ -95,7 +97,7 @@ export default function Editor({mailer, setMailer}) {
             elem.style.removeProperty('transform');
             
             if(parent.y < event.y) mailer.block.open({key: 'block', id: target.id}) //open panel
-            else mailer.platform.add(pos.x, pos.y, target.id);
+            else mailer.platform.add(gridContainer.current.parentNode.scrollLeft+pos.x, gridContainer.current.parentNode.scrollTop+pos.y, target.id);
             
             mailer.block.update();
         }
@@ -128,8 +130,6 @@ export default function Editor({mailer, setMailer}) {
         
             setMailer(data);
         }
-                
-        gridContainer.current.parentNode.style.overflow = 'auto';
     };
 
     return <Wrapper onMouseMove={Move} onTouchMove={Move} onMouseUp={End} onTouchEnd={End}>
