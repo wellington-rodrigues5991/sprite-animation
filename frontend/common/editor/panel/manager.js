@@ -8,10 +8,11 @@ import Block from './block';
 const Panel = styled.div`
     width: 100%;
     height: auto;
+    max-height: calc(100vh - 130px);
     transition: all 0.5s;
     box-sizing: border-box;
     position: relative;
-    overflow: hidden;
+    overflow: auto;
     border-bottom: 1px solid  var(--border-color);
     transform: translateY(1px)
 `;
