@@ -117,8 +117,6 @@ class VCC extends React.PureComponent {
             blockProps: props.blockProps
         }
 
-        console.log(data, 666)
-
         this.customVcc.change(data);
         this.customVcc.save();
     }

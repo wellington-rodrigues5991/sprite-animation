@@ -15,22 +15,22 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-    width: ${props => props.wrap ? '40px' : '120px'};
+    width: ${props => props.wrap != undefined ? '40px' : '120px'};
     height: 35px;
     text-transform: capitalize;
     font-size: 12pt;
 `;
 
 const Value = styled.div`
-    width: ${props => props.wrap ? 'calc(100% - 50px)' : 'calc(100% - 130px)'};
+    width: ${props => props.wrap != undefined ? 'calc(100% - 50px)' : 'calc(100% - 130px)'};
     min-height: 35px;
     margin-left: 10px;
 `;
 
 export default function Line({title, value, type, change, opt, wrap, blur}){
     return <Wrapper>
-        <Title wrap={true}>{title}</Title>
-        <Value wrap={true}>
+        <Title wrap={wrap}>{title}</Title>
+        <Value wrap={wrap}>
             {type == 'text' && <Text change={change} value={value} opt={opt == undefined ? '' : opt} />}
             {type == 'number' && <Number change={change} value={value} opt={opt == undefined ? {} : opt} wrap={wrap} blur={blur} />}
             {type == 'bool' && <Bool change={change} value={value} />}

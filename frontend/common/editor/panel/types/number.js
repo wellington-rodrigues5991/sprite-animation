@@ -5,7 +5,7 @@ const Wrapper = styled.div`
     width: 100%;
 
     & input {
-        -webkit-appearance: none;
+        /*-webkit-appearance: none;
         appearance: none;
         width: 48px;
         height: 40px;
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
         background: var(--color-primary);
         box-shadow: 0px 0px 0px 1px var(--border-color) inset;
         transform: ${props => props.wrap == true ? 'translateY(-30px)' : 'translateY(0px)'};
-        float: ${props => props.wrap == true ? 'right' : ''};
+        float: ${props => props.wrap == true ? 'right' : ''};*/
     }
 
     & input[type=number]::-webkit-inner-spin-button {
@@ -54,13 +54,13 @@ export default function Number({value, change, opt, wrap, blur}) {
     const [start, setStart] = useState(0);
 
     const Change = () => {
-        text.current.value = value;
+        text.current.value = value.toString();
         number.current.value = value;
 
         setStart(value);
     }
 
-    if(start != value && blur != undefined) Change();
+    if(start != value && wrap == true) Change();
     return <Wrapper wrap={wrap}>
         <input 
             type="range"
@@ -70,20 +70,22 @@ export default function Number({value, change, opt, wrap, blur}) {
             min={(opt.min == undefined ? "0" : opt.min)}
             defaultValue={value}
             onChange={e => {
-                text.current.value = number.current.value;
-                change(e.target.value)
+                text.current.value = number.current.value.toString();
+                if(change != undefined) change(e.target.value)
             }}
             onBlur={e =>{if(blur != undefined) blur(e.target.value)}}
         />
         <input
-            type="number"
+            type="text"
             ref={text}
-            defaultValue={value}
+            defaultValue={value.toString()}
             onChange={e => {
-                number.current.value = text.current.value;
-                change(e.target.value);
+                number.current.value = parseFloat(text.current.value);
+                if(change != undefined) change(e.target.value);
             }}
             onBlur={e =>{if(blur != undefined) blur(e.target.value)}}
         />
+
+        <input editable={true}/>
     </Wrapper>;
 }

@@ -59,7 +59,7 @@ export default function EditorPanel({get, set, end}){
             title={value.title} 
             type={value.type}
             opt={value.opt}
-            change={(e, key) => change(e, i, key)}
+            blur={(e, key) => change(e, i, key)}
         />)}</Cont>
         <Bar>
             <Button onClick={Add} />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Line from './line';
 
 export default function Grid({get, set}){
-    const Change = (value, key)=> {
+    const Change = (value)=> {
         const data = Object.assign({}, get);
 
         if(!isNaN(value)) {
@@ -14,7 +14,7 @@ export default function Grid({get, set}){
     };
 
     return <div style={{paddingTop: '48px', paddingBottom: '20px'}}>
-        <Line title="Change divisions number" type="number" value={get.grid.divisions} change={v => Change(parseInt(v))} opt={{min: 2, max: 100, step: 1}} />
+        <Line title="Change divisions number" type="number" value={get.grid.divisions} blur={v => Change(parseInt(v))} opt={{min: 2, max: 100, step: 1}} />
     </div>;
 }
 
