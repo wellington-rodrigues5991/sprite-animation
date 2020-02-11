@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CustomVcc from '@withkoji/custom-vcc-sdk';
-import App from './editor/app';
+import App from './data/app';
 
 class VCC extends React.PureComponent {
     constructor(props) {
@@ -10,53 +10,48 @@ class VCC extends React.PureComponent {
         this.customVcc = new CustomVcc();
         this.update = this.update.bind(this);
         this.showModal = this.showModal.bind(this);
+        this.setVar = this.setVar.bind(this);
         const initialValue = {
-            count: 0,
-            grid: {},
-            platform: {},
-            block: {},
-            panel: undefined,
-            blockProps: [
-                {title: 'meu angle', type: 'number', opt: {min: 0, max: 360, step: 1}, value: 0}
-            ],
-            background: {
-                status: false,
-                data: []
-            },
-            selection: {
-                platform: -1,
-                block: -1,
-                background: -1
-            },
-            open: this.showModal   
+            selection: 'walk',
+            image: null,
+            select: 0,
+            frame: {width: 32, height: 32, padding: 5},
+            animations: {
+                walk: {
+                    frames: [],
+                    fps: 10,
+                },
+                run: {
+                    frames: [],
+                    fps: 5,
+                },
+            }        
         };
         this.state = {
             value: null,
-            data: null,
+            data: initialValue,
             theme: this.customVcc.theme,
         };
 
         this.customVcc.onUpdate((newProps) => {
+            console.log(this.customVcc, newProps)
+            let target = Object.keys(newProps).length > 0 ? newProps : {value: initialValue};
             const data = Object.assign({}, initialValue);
-            const value = Object.assign({}, newProps.value);
+            const value = Object.assign({}, target.value);
+            
+            if(value.frame) data.frame = value.frame;
+            if(value.animations){
+                const animations = {};
 
-            if(typeof value != 'object') value = {}
-
-            if(value.grid != undefined) data.grid = value.grid;
-
-            if(value.platforms != undefined){
-                if(data.platform.movable == undefined) data.platform.movable = {};
-                data.platform.movable.platform = value.platforms;
+                for(let i = 0; i < value.animations.length; i++){
+                    animations[value.animations[i].name] = {
+                        frames: value.animations[i].frames,
+                        fps: value.animations[i].frameRate
+                    };
+                }
+                data.animations = animations;
             }
-
-            if(value.blocks != undefined){
-                if(data.block.movable == undefined) data.block.movable = {};
-                data.block.movable.blocks = value.blocks;
-            }
-            if(value.background != undefined) data.background.data = value.background;
-            if(value.blockProps != undefined) data.blockProps = value.blockProps;
-
-            if(this.state.value != data) this.setState({data: data, value: newProps})   
+            this.setState({data: data, value: target})   
         });
 
         this.customVcc.onTheme((theme) => {
@@ -64,6 +59,10 @@ class VCC extends React.PureComponent {
                 theme
             });
         });
+    }
+
+    setVar(key, val){
+        if(val != undefined) document.documentElement.style.setProperty(key, val)
     }
 
     componentDidMount() {
@@ -75,15 +74,15 @@ class VCC extends React.PureComponent {
         if(border != undefined) border = border.replace(';', '');
         if(font != undefined) font = font.replace('font-family: ', '').replace(';', '');
 
-        document.documentElement.style.setProperty('--text-color', this.state.theme.colors['foreground.default']);
-        document.documentElement.style.setProperty('--color-primary', this.state.theme.colors['input.background']);
-        document.documentElement.style.setProperty('--back-default', this.state.theme.colors['border.default']);
-        document.documentElement.style.setProperty('--back-secundary', this.state.theme.colors['foreground.secondary']);
-        document.documentElement.style.setProperty('--color-secundary', this.state.theme.colors['foreground.primary']);
-        document.documentElement.style.setProperty('--border-color', border);
-        document.documentElement.style.setProperty('--color-base', this.state.theme.colors['background.default']);
-        document.documentElement.style.setProperty('--font-family', font);
-        document.documentElement.style.setProperty('--color-default', this.state.theme.colors['background.default']);
+        this.setVar('--text-color', this.state.theme.colors['foreground.default']);
+        this.setVar('--color-primary', this.state.theme.colors['input.background']);
+        this.setVar('--back-default', this.state.theme.colors['border.default']);
+        this.setVar('--back-secundary', this.state.theme.colors['foreground.secondary']);
+        this.setVar('--color-secundary', this.state.theme.colors['foreground.primary']);
+        this.setVar('--border-color', border);
+        this.setVar('--color-base', this.state.theme.colors['background.default']);
+        this.setVar('--font-family', font);
+        this.setVar('--color-default', this.state.theme.colors['background.default']);
     }
 
     componentWillUpdate(){
@@ -95,15 +94,15 @@ class VCC extends React.PureComponent {
         if(border != undefined) border = border.replace(';', '');
         if(font != undefined) font = font.replace('font-family: ', '').replace(';', '');
 
-        document.documentElement.style.setProperty('--text-color', this.state.theme.colors['foreground.default']);
-        document.documentElement.style.setProperty('--color-primary', this.state.theme.colors['input.background']);
-        document.documentElement.style.setProperty('--back-default', this.state.theme.colors['border.default']);
-        document.documentElement.style.setProperty('--back-secundary', this.state.theme.colors['foreground.secondary']);
-        document.documentElement.style.setProperty('--color-secundary', this.state.theme.colors['foreground.primary']);
-        document.documentElement.style.setProperty('--border-color', border);
-        document.documentElement.style.setProperty('--color-base', this.state.theme.colors['background.default']);
-        document.documentElement.style.setProperty('--font-family', font);
-        document.documentElement.style.setProperty('--color-default', this.state.theme.colors['background.default']);
+        this.setVar('--text-color', this.state.theme.colors['foreground.default']);
+        this.setVar('--color-primary', this.state.theme.colors['input.background']);
+        this.setVar('--back-default', this.state.theme.colors['border.default']);
+        this.setVar('--back-secundary', this.state.theme.colors['foreground.secondary']);
+        this.setVar('--color-secundary', this.state.theme.colors['foreground.primary']);
+        this.setVar('--border-color', border);
+        this.setVar('--color-base', this.state.theme.colors['background.default']);
+        this.setVar('--font-family', font);
+        this.setVar('--color-default', this.state.theme.colors['background.default']);
     }
 
     showModal(callback){
@@ -111,20 +110,27 @@ class VCC extends React.PureComponent {
     }
 
     update(props){
-        const data = {
-            grid: props.grid,
-            platforms: props.platform == undefined ? [] : props.platform.movable == undefined ? [] : props.platform.movable.platform,
-            blocks: props.block == undefined ? [] : props.block.movable == undefined ? [] : props.block.movable.blocks,
-            background: props.background.data,
-            blockProps: props.blockProps
-        }
+        const keys = Object.keys(props.animations);
+        const animations = [];
+        let start = 0
 
-        this.customVcc.change(data);
+        for(let i = 0; i < keys.length; i++){
+            animations.push({
+                name: keys[i],
+                frames: props.animations[keys[i]].frames,
+                start: start,
+                end: start+props.animations[keys[i]].frames.length-1,
+                frameRate: props.animations[keys[i]].fps
+            });
+
+            start += props.animations[keys[i]].frames.length;
+        }
+        this.customVcc.change({frame: props.frame, animations: animations});
         this.customVcc.save();
     }
 
     render() {
-        return <App mailer={this.state.data} setMailer={this.update} />;
+        return <App data={this.state.data} setData={this.update} addImage={this.showModal} />;
     }
 }
 
