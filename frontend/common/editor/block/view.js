@@ -11,7 +11,10 @@ const Content = styled.div`
 
 const BlockPart = styled.div`
     position: absolute;
-    background: ${props => props.color == undefined ? 'var(--border-color)' : 'url('+props.color+')' };
+    background: ${props => {
+        if(props.color == undefined) return 'url(data:image/svg+xml, '+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" fill-opacity="0.3" ><rect x="200" width="200" height="200" /><rect y="200" width="200" height="200" /></svg>')+') 0% 0% / 18px 18px var(--color-default); background-size: 18px !important';
+        return 'url('+props.color+')' 
+    }};
     box-shadow: ${props => props.clean == undefined ? '0px 0px 0px 5px var(--color-default) inset' : ''};
     transition: all 0.3s;
     ${props => {
@@ -77,23 +80,62 @@ const BlockPart = styled.div`
 
         return data
     }}
+    
+        ${props => props.clean == undefined ? `
+        &:before{
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(100% - 10px);
+            height: calc(100% - 10px);
+            box-shadow: 0px 0px 0px 1px var(--border-color) inset;
+        }        
+        &:hover::before{
+            background-color: var(--color-secundary);
+            opacity: 0.8;
+            background-image: url(data:image/svg+xml, ${encodeURIComponent('<svg version="1.1" id="Camada_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1125 1120" style="enable-background:new 0 0 1125 1120;" xml:space="preserve"><g><polygon fill="#FFF" points="0,888.13 0,1120.03 245.54,1120.03 934.43,431.14 695.71,192.42 	"/><path fill="#FFF" d="M1105.42,151.96L973.04,19.58c-25.38-25.38-66.26-26.19-92.63-1.85l-79,72.92c-3.73,3.45-6.9,7.25-9.66,11.26l-41.47,35.94 l231.9,231.9l95.49-95.49l0,0l27.75-27.75C1131.53,220.41,1131.53,178.07,1105.42,151.96z"/></g></svg>')});
+            background-position: center;
+            background-size: 20px;
+            background-repeat: no-repeat;
+        }     
+        &:active::before{
+            background-color: var(--color-secundary);
+            opacity: 0.8;
+            background-image: url(data:image/svg+xml, ${encodeURIComponent('<svg version="1.1" id="Camada_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1125 1120" style="enable-background:new 0 0 1125 1120;" xml:space="preserve"><g><polygon fill="#FFF" points="0,888.13 0,1120.03 245.54,1120.03 934.43,431.14 695.71,192.42 	"/><path fill="#FFF" d="M1105.42,151.96L973.04,19.58c-25.38-25.38-66.26-26.19-92.63-1.85l-79,72.92c-3.73,3.45-6.9,7.25-9.66,11.26l-41.47,35.94 l231.9,231.9l95.49-95.49l0,0l27.75-27.75C1131.53,220.41,1131.53,178.07,1105.42,151.96z"/></g></svg>')});
+            background-position: center;
+            background-size: 20px;
+            background-repeat: no-repeat;
+        }
+        ` : ''};
+    
+        ${props => props.preview != undefined ? `
+        &:before{
+            content: '';
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0px 0px 0px 1px var(--border-color) inset;
+        }` : ''};
 `;
 
-export default function View({color, type, size, clean, edit, open}){
+export default function View({color, type, size, clean, edit, open, preview}){
     let click = edit == undefined ? () => {} : edit;
     let modal = edit == undefined ? () => {} : open;
 
     return <Content>
-        <BlockPart type="top" parent={type} size={size} color={color.top} clean={clean} onClick={() => modal(e=> click(e, 'top'))} />
+        <BlockPart type="top" parent={type} size={size} color={color.top} clean={clean} onClick={() => modal(e=> click(e, 'top'))} preview={preview} />
 
-        <BlockPart type="left" parent={type} size={size} color={color.left} clean={clean} onClick={() => modal(e=> click(e, 'left'))} />
-        <BlockPart type="right" parent={type} size={size} color={color.right} clean={clean} onClick={() => modal(e=> click(e, 'right'))} />
-        <BlockPart type="inner" parent={type} size={size} color={color.inner} clean={clean} onClick={() => modal(e=> click(e, 'inner'))} />
-        <BlockPart type="bottom" parent={type} size={size} color={color.bottom} clean={clean} onClick={() => modal(e=> click(e, 'bottom'))} />
+        <BlockPart type="left" parent={type} size={size} color={color.left} clean={clean} onClick={() => modal(e=> click(e, 'left'))} preview={preview} />
+        <BlockPart type="right" parent={type} size={size} color={color.right} clean={clean} onClick={() => modal(e=> click(e, 'right'))} preview={preview} />
+        <BlockPart type="inner" parent={type} size={size} color={color.inner} clean={clean} onClick={() => modal(e=> click(e, 'inner'))} preview={preview} />
+        <BlockPart type="bottom" parent={type} size={size} color={color.bottom} clean={clean} onClick={() => modal(e=> click(e, 'bottom'))} preview={preview} />
 
-        <BlockPart type="bottom-left" parent={type} size={size} color={color.bottomLeft} clean={clean} onClick={() => modal(e=> click(e, 'bottomLeft'))} />
-        <BlockPart type="bottom-right" parent={type} size={size} color={color.bottomRight} clean={clean} onClick={() => modal(e=> click(e, 'bottomRight'))} />
-        <BlockPart type="top-left" parent={type} size={size} color={color.topLeft} clean={clean} onClick={() => modal(e=> click(e, 'topLeft'))} />
-        <BlockPart type="top-right" parent={type} size={size} color={color.topRight} clean={clean} onClick={() => modal(e=> click(e, 'topRight'))} />
+        <BlockPart type="bottom-left" parent={type} size={size} color={color.bottomLeft} clean={clean} onClick={() => modal(e=> click(e, 'bottomLeft'))} preview={preview} />
+        <BlockPart type="bottom-right" parent={type} size={size} color={color.bottomRight} clean={clean} onClick={() => modal(e=> click(e, 'bottomRight'))} preview={preview} />
+        <BlockPart type="top-left" parent={type} size={size} color={color.topLeft} clean={clean} onClick={() => modal(e=> click(e, 'topLeft'))} preview={preview} />
+        <BlockPart type="top-right" parent={type} size={size} color={color.topRight} clean={clean} onClick={() => modal(e=> click(e, 'topRight'))} preview={preview} />
     </Content>;
 }

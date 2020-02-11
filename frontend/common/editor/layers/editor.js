@@ -20,6 +20,7 @@ const Container = styled.div`
     position:absolute;
     top: 0px;
     left: 0px;
+    overflow: auto;
 `;
 
 export default function Editor({mailer, setMailer}) {

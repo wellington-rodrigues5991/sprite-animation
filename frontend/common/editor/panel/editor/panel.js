@@ -18,7 +18,10 @@ const Bar = styled.div`
 const Button = styled.div`
     width: 25px;
     height: 25px;
-    background: var(--color-secundary);
+    background-image: ${props => 'url(data:image/svg+xml, '+encodeURIComponent('<svg version="1.1" id="Camada_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve"><path fill="'+document.documentElement.style.getPropertyValue('--text-color')+'" d="M6,19c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V7H6V19z M19,4h-3.5l-1-1h-5l-1,1H5v2h14V4z"/></svg>')+')'};
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
     float: right;
     margin-left: 10px;
     line-height: 25px;

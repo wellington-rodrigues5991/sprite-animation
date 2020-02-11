@@ -90,6 +90,8 @@ class VCC extends React.PureComponent {
         let border = this.state.theme.colors['border.secondary'];
         let font = this.state.theme.mixins['font.defaultFamily'];
 
+        window.Theme = this.state.theme;
+
         if(border != undefined) border = border.replace(';', '');
         if(font != undefined) font = font.replace('font-family: ', '').replace(';', '');
 

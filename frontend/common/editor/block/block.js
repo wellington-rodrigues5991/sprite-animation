@@ -17,7 +17,7 @@ const Content = styled.div`
     ${props => props.i == props.selection ? 'box-shadow: 0px 0px 0px 4px var(--color-secundary);' : ''}
 `;
 
-export default function Block({color, down, id, type, selection}){
+export default function Block({color, down, id, type, selection, preview}){
 
     return <Container>
         <Content 
@@ -26,7 +26,7 @@ export default function Block({color, down, id, type, selection}){
             i={id}
             selection={selection}
         >
-            <View type={type} size='19px' color={color} clean={true}/>
+            <View type={type} size='19px' color={color} clean={true} preview={preview}/>
         </Content>
     </Container>;
 }
