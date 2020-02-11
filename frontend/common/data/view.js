@@ -29,7 +29,7 @@ const View = {
     start(url, size, anims, selection){
         if(this.text.length > 0) this.next(url, size, anims, selection);
         else{
-            fetch('phaser.txt')
+            fetch('https://cdn.jsdelivr.net/npm/phaser@3.22.0/dist/phaser-arcade-physics.min.js')
             .then((r) => r.text())
             .then(text => {
                 this.text = text;

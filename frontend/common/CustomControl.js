@@ -34,7 +34,6 @@ class VCC extends React.PureComponent {
         };
 
         this.customVcc.onUpdate((newProps) => {
-            console.log(this.customVcc, newProps)
             let target = Object.keys(newProps).length > 0 ? newProps : {value: initialValue};
             const data = Object.assign({}, initialValue);
             const value = Object.assign({}, target.value);
