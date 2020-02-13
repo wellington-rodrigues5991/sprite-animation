@@ -6,6 +6,7 @@ const Picture = styled.canvas`
     position: fixed;
     top: 0px;
     left: 0px;
+    opacity: 0;
 `;
 
 export default function Canvas({data, set, view}){
@@ -55,7 +56,7 @@ export default function Canvas({data, set, view}){
                             height
                         );
 
-                        generate(select, d)
+                        if(e == keys.length) generate(select, d)
                     };   
                     img.src = target[e];             
                 }
@@ -93,7 +94,7 @@ export default function Canvas({data, set, view}){
             );
         }
     }
-    return <Picture ref={canvas}/>;
+    return <Picture className="canvas" ref={canvas}/>;
 }
 
 function dataURItoBlob(dataURI) {

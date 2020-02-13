@@ -25,9 +25,31 @@ const Button = styled.button`
     border: none;
     width: 30px;
     height: 30px;
-    background: blue;
+    background: none;
     float: ${props => props.type != undefined ? 'left' : 'right'};
     margin-left: ${props => props.type != undefined ? '0px' : '10px'};
+    ${
+        props => {
+            let data = '';
+
+            switch(props.icon){
+                case "remove":
+                    data = 'background: url(data:image/svg+xml, '+encodeURIComponent('<svg version="1.1" id="Camada_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve"><path fill="'+document.documentElement.style.getPropertyValue('--text-color')+'" d="M6,19c0,1.1,0.9,2,2,2h8c1.1,0,2-0.9,2-2V7H6V19z M19,4h-3.5l-1-1h-5l-1,1H5v2h14V4z"/></svg>')+')';
+                    break;
+                case "edit":
+                    data = 'background: url(data:image/svg+xml, '+encodeURIComponent('<svg version="1.1" id="Camada_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1125 1120" style="enable-background:new 0 0 1125 1120;" xml:space="preserve"><g><polygon fill="'+document.documentElement.style.getPropertyValue('--text-color')+'" points="0,888.13 0,1120.03 245.54,1120.03 934.43,431.14 695.71,192.42 	"/><path fill="'+document.documentElement.style.getPropertyValue('--text-color')+'" d="M1105.42,151.96L973.04,19.58c-25.38-25.38-66.26-26.19-92.63-1.85l-79,72.92c-3.73,3.45-6.9,7.25-9.66,11.26l-41.47,35.94 l231.9,231.9l95.49-95.49l0,0l27.75-27.75C1131.53,220.41,1131.53,178.07,1105.42,151.96z"/></g></svg>')+')';
+                    break;
+                case "novo":
+                    data = 'background: url(data:image/svg+xml, '+encodeURIComponent('<svg version="1.1" id="Camada_1" focusable="false" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"	 x="0px" y="0px" viewBox="0 0 24 24" style="enable-background:new 0 0 24 24;" xml:space="preserve"><path fill="'+document.documentElement.style.getPropertyValue('--text-color')+'" d="M13.34,0.02h-2.68v10.63H0.02v2.68h10.63v10.63h2.68V13.34h10.63v-2.68H13.34V0.02z"/></svg>')+')';
+                    break;
+            }
+
+            return data;
+        }
+    };
+    background-size: ${props => props.icon == 'remove' ? '25px' : '18px'};
+    background-position: center;
+    background-repeat: no-repeat;
 `;
 
 const Timeline = styled.div`
@@ -42,8 +64,10 @@ const Timeline = styled.div`
 const Inner = styled.div`
     width: ${props => props.size * 80}px;
     min-width: 100%;
-    display: flex;
+    display: ${props => props.size > 0 ? 'flex' : 'block'};
     box-sizing: border-box;
+    text-align: center;
+    line-height: 80px;
 `;
 
 const Bar = styled.div`
@@ -99,6 +123,7 @@ const Frame = styled.div`
     & img{
         width: 80%;
         height: auto;
+        transform: scale(1);
     }
 
     &:before{
@@ -161,6 +186,7 @@ export default function App({data, setData, addImage}){
     const SelectFrame = id => {
         const d = Object.assign({}, data);
         d.select = id;
+        
         setData(d);
     }
 
@@ -199,12 +225,13 @@ export default function App({data, setData, addImage}){
                 >
                     <img src={value} onLoad={() => data.generate != undefined ? data.generate(data, select) : ''} />
                 </Frame>)}
+                {data.animations[select].frames.length == 0 && 'Click + to add frames'}
             </Inner>
         </Timeline>
         <Bar style={{marginTop: '10px'}}>
-            <Button onClick={Remove} />
-            <Button onClick={() => addImage(url => Edit(url))}/>
-            <Button type="left"  onClick={() => addImage(url => Add(url))}/>
+            <Button onClick={Remove} icon="remove" />
+            <Button onClick={() => addImage(url => Edit(url))} icon="edit" />
+            <Button type="left"  onClick={() => addImage(url => Add(url))} icon="novo" />
         </Bar>
     </Content>
     </>

@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import CustomVcc from '@withkoji/custom-vcc-sdk';
+
 import App from './data/app';
+import Config from './config';
 
 class VCC extends React.PureComponent {
     constructor(props) {
@@ -11,26 +13,18 @@ class VCC extends React.PureComponent {
         this.update = this.update.bind(this);
         this.showModal = this.showModal.bind(this);
         this.setVar = this.setVar.bind(this);
+        this.select = 0;
         const initialValue = {
             selection: 'walk',
             image: null,
             select: 0,
-            frame: {width: 32, height: 32, padding: 5},
-            animations: {
-                walk: {
-                    frames: [],
-                    fps: 10,
-                },
-                run: {
-                    frames: [],
-                    fps: 5,
-                },
-            }        
+            frame: {width: 32, height: 32, padding: 0},
+            animations: {}        
         };
         this.state = {
             value: null,
             data: initialValue,
-            theme: this.customVcc.theme,
+            theme: this.customVcc.theme
         };
 
         this.customVcc.onUpdate((newProps) => {
@@ -50,6 +44,14 @@ class VCC extends React.PureComponent {
                 }
                 data.animations = animations;
             }
+            if(data.animations[data.selection] == undefined){
+                const keys = Object.keys(data.animations);
+                
+                data.selection = keys[0];
+            }
+            data.select = this.select;
+            if(data.animations != undefined &&  data.animations[data.selection] != undefined && data.select > data.animations[data.selection].frames.length) data.select = 0;
+            
             this.setState({data: data, value: target})   
         });
 
@@ -124,12 +126,20 @@ class VCC extends React.PureComponent {
 
             start += props.animations[keys[i]].frames.length;
         }
-        this.customVcc.change({frame: props.frame, animations: animations});
+
+        this.select = props.select;
+        let canvas = document.getElementsByClassName('canvas')[0];
+        if(canvas != undefined) canvas = canvas.toDataURL();
+
+        this.customVcc.change({frame: props.frame, animations: animations, image: canvas == undefined ? (this.state.value == null ? undefined : this.state.value.image) : canvas});
         this.customVcc.save();
     }
 
     render() {
-        return <App data={this.state.data} setData={this.update} addImage={this.showModal} />;
+        return <>
+            {Object.keys(this.state.data.animations).length > 0 && <App data={this.state.data} setData={this.update} addImage={this.showModal} />}
+            <Config data={this.state.data} setData={this.update} />
+        </>;
     }
 }
 
