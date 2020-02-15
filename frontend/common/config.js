@@ -132,10 +132,12 @@ export default function Config({data, setData}){
     const [select, setSelect] = useState(-1);
 	const [animations, setAnimations] = useState(Object.keys(data.animations))
 
-    if(data.open < 3 || data.open == undefined){
+    if(data.open < 4 || data.open == undefined){
         data.open = data.open == undefined ? 0 : data.open+1;
-        if(data.open == 2 && Object.keys(data.animations).length == 0) setOpen(false);
+        if(data.open == 3 && Object.keys(data.animations).length == 0) setOpen(false);
     }
+
+    console.log(data.open, (Object.keys(data.animations)))
 
 	const Add = () => {
 		const d = animations.slice();
@@ -189,8 +191,8 @@ export default function Config({data, setData}){
 	return <>
 		<Wrapper open={open}>
 			<Content open={!open}>
-				<h1>Animations Settings</h1>
-				<p>blablabla</p>
+				<h1 style={{fontSize: '22pt'}}>Animations Settings</h1>
+				<p style={{paddingTop: '5px'}}>In this session you will be able to create the names of your animations and frame size. <br/>Be careful when making pitches in this section, because if you are not programmed your game correctly, it may not work correctly.</p>
 				<Line style={{paddingBottom: '20px', display: 'flex', marginTop: '30px', marginBottom: '30px'}}>
 						<Title><h3>Frame Size</h3></Title>
 						<Value>
@@ -215,7 +217,7 @@ export default function Config({data, setData}){
 				</Line>
 				)}
 			</Content>
-            <Close onClick={() => setOpen(!open)} open={open} />
+            <Close onClick={() => {setOpen(!open); if(open == true) setAnimations(Object.keys(data.animations))}} open={open} />
 		</Wrapper>
 	</>;
 }
