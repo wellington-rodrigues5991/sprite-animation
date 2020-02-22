@@ -48,8 +48,6 @@ export default function Canvas({data, set, view}){
                             x = d.frame.width-width;
                             x = x > 0 ? x / 2 : x;
                         }
-
-                        console.log(width, this.width, d)
                         context.drawImage(
                             this, 
                             ((d.frame.width + (d.frame.padding * 2)) * e) + d.frame.padding + x, 
@@ -58,7 +56,7 @@ export default function Canvas({data, set, view}){
                             height
                         );
 
-                        console.log(e, keys.length)
+                        console.log(i, e, keys.length, keys)
                         if(e == keys.length-1 || keys.length == 1) generate(select, d, s)
                     };   
                     img.src = target[e];             
