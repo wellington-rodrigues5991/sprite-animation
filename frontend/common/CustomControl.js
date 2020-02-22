@@ -19,7 +19,13 @@ class VCC extends React.PureComponent {
             image: null,
             select: 0,
             frame: {width: 32, height: 32, padding: 0},
-            animations: {}        
+            animations: {
+                name: 'default',
+                frames: [],
+                start: 0,
+                end: 0,
+                frameRate: 10
+          }      
         };
         this.state = {
             value: null,
