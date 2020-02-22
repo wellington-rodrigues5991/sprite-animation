@@ -121,11 +121,14 @@ class VCC extends React.PureComponent {
         let start = 0
 
         for(let i = 0; i < keys.length; i++){
+            let end = props.animations[keys[i]].frames.length-1;
+            
+            end = end < 0 ? 0 : end;
             animations.push({
                 name: keys[i],
                 frames: props.animations[keys[i]].frames,
                 start: start,
-                end: start+props.animations[keys[i]].frames.length-1,
+                end: start+end,
                 frameRate: props.animations[keys[i]].fps
             });
 
