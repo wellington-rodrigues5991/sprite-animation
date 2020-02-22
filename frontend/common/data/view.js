@@ -116,7 +116,7 @@ const View = {
             }
         `;
 
-        console.log(anim, 00)
+        console.log(anim)
         target.body.appendChild(script)
     }
 };
