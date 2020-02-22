@@ -25,7 +25,7 @@ export default function Canvas({data, set, view}){
             canvas.current.height = keys.length * (d.frame.height + (d.frame.padding * 2));
 
             //draw images
-            const context = canvas.current.getContext("2d");
+            const context = canvas.current.getContext("2d");            
             for(let i = 0; i < keys.length; i++){
                 let target = d.animations[keys[i]].frames;
                 for(let e = 0; e < target.length; e++){
@@ -55,8 +55,7 @@ export default function Canvas({data, set, view}){
                             width, 
                             height
                         );
-
-                        if(e == keys.length) generate(select, d, s)
+                        if(e == keys.length-1) generate(select, d, s)
                     };   
                     img.src = target[e];             
                 }
