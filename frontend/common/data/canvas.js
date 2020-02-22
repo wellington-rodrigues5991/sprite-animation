@@ -13,6 +13,7 @@ export default function Canvas({data, set, view}){
     const canvas = useRef();
     
     if(data.generate == undefined){
+        window.breaks = [];
         data.generate = (d, select, s) => {
             //define sizes
             let max = 0;
@@ -25,7 +26,9 @@ export default function Canvas({data, set, view}){
             canvas.current.height = keys.length * (d.frame.height + (d.frame.padding * 2));
 
             //draw images
-            const context = canvas.current.getContext("2d");            
+            const context = canvas.current.getContext("2d");   
+            let count = 0;
+
             for(let i = 0; i < keys.length; i++){
                 let target = d.animations[keys[i]].frames;
                 for(let e = 0; e < target.length; e++){
@@ -56,10 +59,10 @@ export default function Canvas({data, set, view}){
                             height
                         );
                         
-                        console.log(d, select, s)
+                        if(target.length-1 == e) window.breaks[i] = {start: i * max, end: i * max + target.length};
                         if(i == keys.length-1 || keys.length == 1) generate(select, d, s)
                     };   
-                    img.src = target[e];             
+                    img.src = target[e];      
                 }
             }
             
@@ -78,8 +81,8 @@ export default function Canvas({data, set, view}){
             for(let i = 0; i < keys.length; i++){
                 animations.push({
                     name: keys[i],
-                    start: start,
-                    end: start+d.animations[keys[i]].frames.length-1,
+                    start: window.breaks[i].start,
+                    end: window.breaks[i].end-1,
                     frameRate: d.animations[keys[i]].fps
                 });
 
