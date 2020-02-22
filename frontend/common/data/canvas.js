@@ -13,7 +13,7 @@ export default function Canvas({data, set, view}){
     const canvas = useRef();
     
     if(data.generate == undefined){
-        data.generate = (d, select, s) =>{
+        data.generate = (d, select, s) => {
             //define sizes
             let max = 0;
             const keys = Object.keys(d.animations);
@@ -57,7 +57,9 @@ export default function Canvas({data, set, view}){
                             width, 
                             height
                         );
-                        if(e == keys.length || keys.length == 1) generate(select, d, s)
+
+                        console.log(e == keys.length, keys.length == 1)
+                        if(e == keys.length-1 || keys.length == 1) generate(select, d, s)
                     };   
                     img.src = target[e];             
                 }
