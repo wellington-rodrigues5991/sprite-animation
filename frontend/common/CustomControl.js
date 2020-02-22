@@ -18,7 +18,7 @@ class VCC extends React.PureComponent {
             selection: 'default',
             image: null,
             select: 0,
-            frame: {width: 32, height: 32, padding: 0},
+            frame: {width: 300, height: 300, padding: 0},
             animations: {
                 default: {
                     frames: [],
