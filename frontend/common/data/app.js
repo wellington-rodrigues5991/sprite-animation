@@ -180,7 +180,7 @@ export default function App({data, setData, addImage}){
         d.animations[select].frames.forEach((value, i) => i != data.select ? arr.push(value) : '' );
         d.animations[select].frames = arr;
         setData(d);
-        if(data.generate != undefined) data.generate(d, select);
+        if(data.generate != undefined) data.generate(d, select, setData);
     }
 
     const SelectFrame = id => {
@@ -193,14 +193,14 @@ export default function App({data, setData, addImage}){
     const SelectAnimation = value => {
         if(fps.current != null) fps.current.value = data.animations[value].fps;
         setSelection(value);
-        if(data.generate != undefined) data.generate(data, select);
+        if(data.generate != undefined) data.generate(data, select, setData);
     }
 
     const changeFrameRate = value => {
         const d = Object.assign({}, data);
         d.animations[d.selection].fps = value;
         setData(d);
-        if(data.generate != undefined) data.generate(d, select);
+        if(data.generate != undefined) data.generate(d, select, setData);
     }
     
     const select = selection == null ? data.selection : selection;
@@ -223,7 +223,7 @@ export default function App({data, setData, addImage}){
                     onClick={() => SelectFrame(i)} 
                     select={(i == data.select).toString()}
                 >
-                    <img src={value} onLoad={() => data.generate != undefined ? data.generate(data, select) : ''} />
+                    <img src={value} onLoad={() => data.generate != undefined ? data.generate(data, select, setData) : ''} />
                 </Frame>)}
                 {data.animations[select].frames.length == 0 && 'Click + to add frames'}
             </Inner>

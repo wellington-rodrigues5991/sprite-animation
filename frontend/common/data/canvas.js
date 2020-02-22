@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const Picture = styled.canvas`
     position: fixed;
-    top: 0px;
-    left: 0px;
+    top: -10000px;
+    left: -10000px;
     opacity: 0;
 `;
 
@@ -13,7 +13,7 @@ export default function Canvas({data, set, view}){
     const canvas = useRef();
     
     if(data.generate == undefined){
-        data.generate = (d, select) =>{
+        data.generate = (d, select, s) =>{
             //define sizes
             let max = 0;
             const keys = Object.keys(d.animations);
@@ -56,7 +56,7 @@ export default function Canvas({data, set, view}){
                             height
                         );
 
-                        if(e == keys.length) generate(select, d)
+                        if(e == keys.length) generate(select, d, s)
                     };   
                     img.src = target[e];             
                 }
@@ -65,13 +65,12 @@ export default function Canvas({data, set, view}){
         };
     }
 
-    const generate = (select, d) => {
+    const generate = (select, d, s) => {
         if(canvas.current != undefined){
             d.image = URL.createObjectURL(dataURItoBlob(canvas.current.toDataURL()));
-            set(d);
-
+            s(d);
             
-            const keys = Object.keys(data.animations);
+            const keys = Object.keys(d.animations);
             const animations = [];
             let start = 0
 
@@ -88,7 +87,7 @@ export default function Canvas({data, set, view}){
             
             view.start(
                 d.image, 
-                {width: data.frame.width+(data.frame.padding*2), height: data.frame.height+(data.frame.padding*2)},
+                {width: d.frame.width+(d.frame.padding*2), height: d.frame.height+(d.frame.padding*2)},
                 animations,
                 select
             );

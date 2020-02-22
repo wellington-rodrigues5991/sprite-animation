@@ -49,15 +49,13 @@ class VCC extends React.PureComponent {
                 }
                 data.animations = animations;
             }
+            if(this.select != 0) data.select = this.select;
             if(data.animations[data.selection] == undefined){
                 const keys = Object.keys(data.animations);
                 
                 data.selection = keys[0];
             }
-            data.select = this.select;
-            if(data.animations != undefined &&  data.animations[data.selection] != undefined && data.select > data.animations[data.selection].frames.length) data.select = 0;
-
-            console.log(data, this.select)
+            //if(data.animations != undefined &&  data.animations[data.selection] != undefined && data.select > data.animations[data.selection].frames.length) data.select = 0;
             
             this.setState({data: data, value: target})   
         });

@@ -1,30 +1,8 @@
-import Phaser from 'phaser';
-import Scene from '../config/scene';
-import { Sprite } from './sprite';
-
 const View = {
     text: '',
-    config:{
-        type: Phaser.AUTO,
-        width: window.innerWidth,
-        height: window.innerHeight,
-        "render.transparent": true,
-        "render.autoResize": true,
-        scene: [new Scene([ Sprite ])],
-        scale: {
-            parent: 'phaser-game',
-            mode: Phaser.Scale.RESIZE,
-            autoCenter: Phaser.Scale.CENTER_BOTH
-        },
-        loader: {crossOrigin: 'anonymous'},
-        autoRound: true,
-        pixelArt: false
-    },
     game: null,
     destroy(){
         document.getElementById('phaser-game').children[0].remove();
-
-        //setTimeout(() => {this.start()}, 1000);
     },
     start(url, size, anims, selection){
         if(this.text.length > 0) this.next(url, size, anims, selection);
@@ -47,7 +25,7 @@ const View = {
         parent.appendChild(iframe);
         
         const target = iframe.contentDocument || iframe.contentWindow.document;
-        base.id = 'phaser-content';
+        base.id = 'root';
         base.style.position = 'fixed';
         base.style.top = '0px';
         base.style.left = '0px';
@@ -84,7 +62,7 @@ const View = {
                     update: update
                 },
                 scale: {
-                    parent: 'phaser-content',
+                    //parent: 'root',
                     mode: Phaser.Scale.RESIZE,
                     autoCenter: Phaser.Scale.CENTER_BOTH
                 },
@@ -116,15 +94,15 @@ const View = {
 
             function create ()
             {
-                this.view = this.add.sprite(window.innerWidth/2, window.innerHeight/2, 'sprite');
+                this.view = this.add.sprite(window.innerWidth/2 + ${size.width-22.5}, window.innerHeight/2 + ${size.height-45}, 'sprite');
                 this.view.setScale(2);
                 ${anim}                
 
                 this.view.play('${selection}')
                 
                 window.addEventListener('resize', () => {
-                    this.view.x = window.innerWidth/2;
-                    this.view.y = window.innerHeight/2;
+                    this.view.x = window.innerWidth/2 + ${size.width-22.5};
+                    this.view.y = window.innerHeight/2 + ${size.height-45};
                 });
             }
 
@@ -135,8 +113,6 @@ const View = {
         target.body.appendChild(script)
     }
 };
-
-window.Phaser = Phaser
 
 //
 
