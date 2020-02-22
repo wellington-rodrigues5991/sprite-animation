@@ -38,16 +38,18 @@ export default function Canvas({data, set, view}){
                         let x = 0;
 
                         if(width > height){
-                            height = 32 * (height/width);
-                            width = 32;
-                            y = (32-height)/2;
+                            height = d.frame.height * (height/width);
+                            width = d.frame.width;
+                            y = (d.frame.height-height)/2;
                         }
                         else{
-                            width = 32 * (width/height);
-                            height = 32;
-                            x = 32-width;
+                            width = d.frame.width * (width/height);
+                            height = d.frame.height;
+                            x = d.frame.width-width;
                             x = x > 0 ? x / 2 : x;
                         }
+
+                        console.log(width, this.width, d)
                         context.drawImage(
                             this, 
                             ((d.frame.width + (d.frame.padding * 2)) * e) + d.frame.padding + x, 

@@ -95,15 +95,19 @@ const View = {
 
             function create ()
             {
-                this.view = this.add.sprite(window.innerWidth/2 + ${size.width-22.5}, window.innerHeight/2 + ${size.height-45}, 'sprite');
+                this.view = this.add.sprite(window.innerWidth/2, window.innerHeight/2, 'sprite');
                 this.view.setScale(2);
+                this.view.displayWidth = window.innerWidth/2;
+                this.view.displayHeight = window.innerHeight/2;
                 ${anim}                
 
                 this.view.play('${selection}')
                 
                 window.addEventListener('resize', () => {
-                    this.view.x = window.innerWidth/2 + ${size.width-22.5};
-                    this.view.y = window.innerHeight/2 + ${size.height-45};
+                    this.view.x = window.innerWidth/2;
+                    this.view.y = window.innerHeight/2;
+                    this.view.displayWidth = window.innerWidth/2;
+                    this.view.displayHeight = window.innerHeight/2;
                 });
             }
 
