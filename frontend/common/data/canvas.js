@@ -55,9 +55,8 @@ export default function Canvas({data, set, view}){
                             width, 
                             height
                         );
-
-                        console.log(i, e, keys.length, keys)
-                        if(e == keys.length-1 || keys.length == 1) generate(select, d, s)
+                        
+                        if(i == keys.length-1 || keys.length == 1) generate(select, d, s)
                     };   
                     img.src = target[e];             
                 }
