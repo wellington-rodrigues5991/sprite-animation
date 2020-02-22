@@ -32,6 +32,7 @@ const View = {
         base.style.width = '100vw';
         base.style.height = '100vh';
         target.body.appendChild(base)
+        target.body.style.overflow = 'hidden';
         
         const phaser = document.createElement('script');
         phaser.innerHTML = this.text;
