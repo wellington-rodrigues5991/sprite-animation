@@ -56,6 +56,7 @@ export default function Canvas({data, set, view}){
                             height
                         );
                         
+                        console.log(d, select, s)
                         if(i == keys.length-1 || keys.length == 1) generate(select, d, s)
                     };   
                     img.src = target[e];             
