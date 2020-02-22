@@ -137,8 +137,6 @@ export default function Config({data, setData}){
         if(data.open == 3 && Object.keys(data.animations).length == 0) setOpen(false);
     }
 
-    console.log(data.open, (Object.keys(data.animations)))
-
 	const Add = () => {
 		const d = animations.slice();
 		
