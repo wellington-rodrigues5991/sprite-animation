@@ -15,7 +15,7 @@ class VCC extends React.PureComponent {
         this.setVar = this.setVar.bind(this);
         this.select = 0;
         const initialValue = {
-            selection: 'walk',
+            selection: 'default',
             image: null,
             select: 0,
             frame: {width: 32, height: 32, padding: 0},
@@ -37,8 +37,8 @@ class VCC extends React.PureComponent {
             const data = Object.assign({}, initialValue);
             const value = Object.assign({}, target.value);
             
-            if(value.frame) data.frame = value.frame;
-            if(value.animations){
+            if(value.frame != undefined) data.frame = value.frame;
+            if(value.animations != undefined){
                 const animations = {};
 
                 for(let i = 0; i < value.animations.length; i++){
@@ -56,6 +56,8 @@ class VCC extends React.PureComponent {
             }
             data.select = this.select;
             if(data.animations != undefined &&  data.animations[data.selection] != undefined && data.select > data.animations[data.selection].frames.length) data.select = 0;
+
+            console.log(data)
             
             this.setState({data: data, value: target})   
         });
