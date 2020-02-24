@@ -212,7 +212,7 @@ export default function App({data, setData, addImage}){
     <Content>
         <Bar style={{marginTop: '10px'}}>
             <Input>
-                <input defaultValue={data.animations[select].fps} ref={fps} type="number" onChange={e => changeFrameRate(e.target.value)}/>
+                <input defaultValue={data.animations[select].fps} ref={fps} type="number" onBlur={e => changeFrameRate(e.target.value)}/>
             </Input>
             <Select className="select" onChange={e => SelectAnimation(e.target.value)}>
                 {Object.keys(data.animations).map((value, i) => <option value={value} key={i}>{value}</option>)}
