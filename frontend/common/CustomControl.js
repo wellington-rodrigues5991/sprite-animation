@@ -44,7 +44,7 @@ class VCC extends React.PureComponent {
                 for(let i = 0; i < value.animations.length; i++){
                     animations[value.animations[i].name] = {
                         frames: value.animations[i].frames,
-                        fps: value.animations[i].frameRate
+                        fps: parseFloat(value.animations[i].frameRate)
                     };
                 }
                 data.animations = animations;
@@ -56,7 +56,7 @@ class VCC extends React.PureComponent {
                 data.selection = keys[0];
             }
             //if(data.animations != undefined &&  data.animations[data.selection] != undefined && data.select > data.animations[data.selection].frames.length) data.select = 0;
-            
+            console.log(Object.assign({}, data), Object.assign({}, target))
             this.setState({data: data, value: target})   
         });
 
@@ -127,9 +127,9 @@ class VCC extends React.PureComponent {
             animations.push({
                 name: keys[i],
                 frames: props.animations[keys[i]].frames,
-                start: start,
-                end: start+end,
-                frameRate: props.animations[keys[i]].fps
+                start: parseFloat(start),
+                end: parseFloat(start+end),
+                frameRate: parseFloat(props.animations[keys[i]].fps)
             });
 
             start += props.animations[keys[i]].frames.length;

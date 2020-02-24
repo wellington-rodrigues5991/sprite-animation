@@ -16,6 +16,7 @@ const View = {
         }
     },
     next(url, size, anims, selection){
+        console.log("render")
         const parent = document.getElementById('phaser-game');
         const iframe = document.createElement('iframe');
         const base = document.createElement('div');
@@ -97,17 +98,37 @@ const View = {
             {
                 this.view = this.add.sprite(window.innerWidth/2, window.innerHeight/2, 'sprite');
                 this.view.setScale(2);
-                this.view.displayWidth = window.innerWidth/2;
-                this.view.displayHeight = window.innerHeight/2;
+                let size = window.innerWidth/2;
+
+                if(window.innerWidth < window.innerHeight) size = window.innerHeight/2
+                if(this.view.displayWidth < this.view.displayHeight){
+                    this.view.displayWidth = size * (this.view.displayWidth/this.view.displayHeight);
+                    this.view.displayHeight = size;
+                }
+                if(this.view.displayWidth >= this.view.displayHeight){
+                    this.view.displayHeight = size * (this.view.displayHeight/this.view.displayWidth);
+                    this.view.displayWidth = size;
+                }
+                this.view.x = window.innerWidth/2;
+                this.view.y = window.innerHeight/2;
                 ${anim}                
 
                 this.view.play('${selection}')
                 
                 window.addEventListener('resize', () => {
+                    let size = window.innerWidth/2;
+
+                    if(window.innerWidth < window.innerHeight) size = window.innerHeight/2
+                    if(this.view.displayWidth < this.view.displayHeight){
+                        this.view.displayWidth = size * (this.view.displayWidth/this.view.displayHeight);
+                        this.view.displayHeight = size;
+                    }
+                    if(this.view.displayWidth >= this.view.displayHeight){
+                        this.view.displayHeight = size * (this.view.displayHeight/this.view.displayWidth);
+                        this.view.displayWidth = size;
+                    }
                     this.view.x = window.innerWidth/2;
                     this.view.y = window.innerHeight/2;
-                    this.view.displayWidth = window.innerWidth/2;
-                    this.view.displayHeight = window.innerHeight/2;
                 });
             }
 

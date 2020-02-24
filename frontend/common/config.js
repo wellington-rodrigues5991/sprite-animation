@@ -185,6 +185,12 @@ export default function Config({data, setData}){
 		setAnimations(t);
         setData(d);
 	};
+
+    const Change = (key, val) => {
+        const d = Object.assign({}, data);
+        d.frame[key] = parseFloat(val);
+        setData(d)
+    }
 	
 	return <>
 		<Wrapper open={open}>
@@ -194,9 +200,9 @@ export default function Config({data, setData}){
 				<Line style={{paddingBottom: '20px', display: 'flex', marginTop: '30px', marginBottom: '30px'}}>
 						<Title><h3>Frame Size</h3></Title>
 						<Value>
-							<Input label="Width" type="number" select={false} setSelect={() => setSelect(-1)} text={data.frame.width} />
-							<Input label="Height" type="number" select={false} setSelect={() => setSelect(-1)} text={data.frame.height} />
-							<Input label="Padding" type="number" select={false} setSelect={() => setSelect(-1)} text={data.frame.padding} />
+							<Input label="Width" type="number" select={false} setSelect={() => setSelect(-1)} text={data.frame.width} onchange={e => Change('width', e.target.value)} />
+							<Input label="Height" type="number" select={false} setSelect={() => setSelect(-1)} text={data.frame.height} onchange={e => Change('height', e.target.value)} />
+							<Input label="Padding" type="number" select={false} setSelect={() => setSelect(-1)} text={data.frame.padding} onchange={e => Change('padding', e.target.value)} />
 						</Value>
 				</Line>
 				<Line>

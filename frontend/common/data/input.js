@@ -56,7 +56,13 @@ const Delete = styled.button`
 export default function Input({label, type, onchange, remove, text, select, setSelect}){
     const ref = useRef();
 
-    if(!select && ref.current != undefined) ref.current.value = text;
+    console.log(text, label. type)
+
+    if(!select && ref.current != undefined) {
+        let t = text;
+        if(type == 'number') t = parseFloat(text);
+        ref.current.value = t;
+    }
 
     return <Wrapper>
         <Value>

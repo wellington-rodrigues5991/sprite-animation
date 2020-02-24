@@ -204,6 +204,8 @@ export default function App({data, setData, addImage}){
     }
     
     const select = selection == null ? data.selection : selection;
+
+    if(fps.current != undefined) fps.current.value = parseFloat(data.animations[data.selection].fps);
     
     return <> 
     <Canvas data={data} set={setData} view={View} />   

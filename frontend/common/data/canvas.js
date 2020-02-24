@@ -15,7 +15,7 @@ export default function Canvas({data, set, view}){
     if(data.generate == undefined){
         window.breaks = [];
         data.generate = (d, select, s) => {
-            //define sizes
+
             let max = 0;
             const keys = Object.keys(d.animations);
             for(let i = 0; i < keys.length; i++){
@@ -41,12 +41,12 @@ export default function Canvas({data, set, view}){
                         let x = 0;
 
                         if(width > height){
-                            height = d.frame.height * (height/width);
+                            height = d.frame.width * (height/width);
                             width = d.frame.width;
                             y = (d.frame.height-height)/2;
                         }
                         else{
-                            width = d.frame.width * (width/height);
+                            width = d.frame.height * (width/height);
                             height = d.frame.height;
                             x = d.frame.width-width;
                             x = x > 0 ? x / 2 : x;
@@ -60,7 +60,7 @@ export default function Canvas({data, set, view}){
                         );
                         
                         if(target.length-1 == e) window.breaks[i] = {start: i * max, end: i * max + target.length};
-                        if(i == keys.length-1 || keys.length == 1) generate(select, d, s)
+                        if((i == keys.length-1 || keys.length == 1) && target.length-1 == e) generate(select, d, s)
                     };   
                     img.src = target[e];      
                 }
@@ -70,7 +70,7 @@ export default function Canvas({data, set, view}){
     }
 
     const generate = (select, d, s) => {
-        if(canvas.current != undefined){
+        if(canvas.current != undefined && window.breaks.length > 0){
             d.image = URL.createObjectURL(dataURItoBlob(canvas.current.toDataURL()));
             s(d);
             
